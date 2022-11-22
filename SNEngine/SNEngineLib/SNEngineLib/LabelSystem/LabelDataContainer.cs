@@ -79,7 +79,7 @@ namespace SNEngineLib.LabelSystem
         {
             _images.Clear();
 
-            _content?.Dispose();
+            _content.Unload();
         }
     }
 }
