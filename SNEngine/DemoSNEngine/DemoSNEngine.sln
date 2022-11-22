@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoSNEngine", "DemoSNEngine\DemoSNEngine.csproj", "{31381D6B-C649-47DD-A623-736D66A36CA6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SNEngineLib", "..\SNEngineLib\SNEngineLib\SNEngineLib.csproj", "{D1E21B67-03C5-41C1-882B-F7B7E9A82B42}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{31381D6B-C649-47DD-A623-736D66A36CA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31381D6B-C649-47DD-A623-736D66A36CA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31381D6B-C649-47DD-A623-736D66A36CA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31381D6B-C649-47DD-A623-736D66A36CA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1E21B67-03C5-41C1-882B-F7B7E9A82B42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1E21B67-03C5-41C1-882B-F7B7E9A82B42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1E21B67-03C5-41C1-882B-F7B7E9A82B42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1E21B67-03C5-41C1-882B-F7B7E9A82B42}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AA3DDF63-AA31-4FEA-8D82-59FD628D77A9}
+	EndGlobalSection
+EndGlobal
