@@ -1,4 +1,6 @@
-﻿using SNEngineLib.LabelSystem;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using SNEngineLib.LabelSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +11,17 @@ namespace DemoSNEngine.Labels
 {
     public class LabelTwo : Label
     {
+
         public override void Initialize()
         {
             base.Initialize();
 
             Container.LoadBackground("img/school_background_2");
         }
+
+        public override void Update(GameTime gameTime)
+        {
+        }
+
     }
 }

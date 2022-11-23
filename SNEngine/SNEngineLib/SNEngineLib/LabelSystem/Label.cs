@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace SNEngineLib.LabelSystem
 {
-    public abstract class Label : ILabel
+    public abstract class Label :  ILabel
     {
         private LabelDataContainer _container;
 
@@ -125,5 +125,7 @@ namespace SNEngineLib.LabelSystem
             Debug.WriteLine("label dispose");
 #endif
         }
+
+        public abstract void Update(GameTime gameTime);
     }
 }

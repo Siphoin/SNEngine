@@ -91,6 +91,11 @@ namespace SNEngineLib
 
         public void JumpToLabel(ILabel label)
         {
+            if (_currentLabel == label)
+            {
+                return;
+            }
+
             _currentLabel?.Dispose();
 
             _currentLabel = label;
@@ -165,6 +170,8 @@ namespace SNEngineLib
             {
                 component.Update(gameTime);
             }
+
+            _currentLabel?.Update(gameTime);
         }
     }
 }

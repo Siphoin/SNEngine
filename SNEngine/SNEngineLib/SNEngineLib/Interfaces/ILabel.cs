@@ -5,7 +5,7 @@ using System;
 
 namespace SNEngineLib.Interfaces
 {
-    public interface ILabel : IDisposable
+    public interface ILabel : IDisposable, IUpdatableComponent
     {
         string Name { get; set; }
 
@@ -20,5 +20,7 @@ namespace SNEngineLib.Interfaces
         void SetSpriteBatch(SpriteBatch spriteBatch);
 
         void SetContentManager(ContentManager contentManager);
+
+
     }
 }

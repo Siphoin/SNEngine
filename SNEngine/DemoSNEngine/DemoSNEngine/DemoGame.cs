@@ -80,6 +80,12 @@ namespace DemoSNEngine
                             JumptoLabelTwo();
                             break;
                         }
+
+                    case Keys.D:
+                        {
+                            _novelEngine.JumpToLabel("Label_1");
+                            break;
+                        }
                 }
             }
             _novelEngine.Update(gameTime);

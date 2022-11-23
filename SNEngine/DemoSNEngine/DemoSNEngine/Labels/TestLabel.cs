@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using SNEngineLib.LabelSystem;
 
 namespace DemoSNEngine.Labels
@@ -18,6 +19,11 @@ namespace DemoSNEngine.Labels
             Container.LoadAsset<Texture2D>("img/apple", true);
 
            
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            
         }
     }
 }
