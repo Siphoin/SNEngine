@@ -25,10 +25,6 @@ namespace DemoSNEngine
         {
             base.Initialize();
 
-            _graphics.PreferredBackBufferHeight = 720;
-            _graphics.PreferredBackBufferWidth = 1200;
-
-            _graphics.ApplyChanges();
         }
 
         protected override void LoadContent()
@@ -43,6 +39,7 @@ namespace DemoSNEngine
             _novelEngine.AddLabel(testLabel);
 
             testLabel.Initialize();
+
         }
 
         protected override void Update(GameTime gameTime)

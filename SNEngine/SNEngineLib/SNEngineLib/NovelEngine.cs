@@ -5,6 +5,7 @@ using SNEngineLib.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace SNEngineLib
 {
@@ -36,6 +37,8 @@ namespace SNEngineLib
             _graphicsDevice = graphicsDevice;
             _graphics = graphicsDeviceManager;
             _contentManager = contentManager;
+
+            Screen.Initialize(_graphics);
             
         }
 
@@ -83,16 +86,28 @@ namespace SNEngineLib
 
         public void JumpToLabel(ILabel label)
         {
-            if (_currentLabel != null)
-            {
-                _currentLabel.Dispose();
-            }
+            _currentLabel?.Dispose();
 
             _currentLabel = label;
 
 #if DEBUG
             Debug.WriteLine($"jumped to label: {_currentLabel.Name}");
 #endif
+        }
+
+        public void JumpToLabel(string labelName)
+        {
+            try
+            {
+                ILabel label = _labels.Single(x => x.Name == labelName);
+
+                JumpToLabel(label);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }
