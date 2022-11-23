@@ -3,13 +3,14 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SNEngineLib.Interfaces;
 using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace SNEngineLib.LabelSystem
 {
     public abstract class Label : ILabel
     {
-        LabelDataContainer _container;
+        private LabelDataContainer _container;
 
         private SpriteBatch _spriteBatch;
 
@@ -100,7 +101,9 @@ namespace SNEngineLib.LabelSystem
 
         public virtual void Initialize()
         {
-            throw new NotImplementedException();
+#if DEBUG
+            Debug.WriteLine($"label {Name} initialized");
+#endif
         }
 
         public void SetContentManager(ContentManager contentManager)
@@ -117,6 +120,10 @@ namespace SNEngineLib.LabelSystem
         public void Dispose()
         {
             _container.Dispose();
+
+#if DEBUG
+            Debug.WriteLine("label dispose");
+#endif
         }
     }
 }

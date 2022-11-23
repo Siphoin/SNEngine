@@ -9,11 +9,13 @@ using System.Linq;
 
 namespace SNEngineLib
 {
-    public class NovelEngine : INovelEngine
+    public class NovelEngine : Component, INovelEngine
     {
         private int _currentIndexLabel = -1;
 
         private List<ILabel> _labels;
+
+        private List<Component> _components;
 
         private SpriteBatch _spriteBatch;
 
@@ -23,15 +25,20 @@ namespace SNEngineLib
 
         private ContentManager _contentManager;
 
+
         private ILabel _currentLabel;
 
         public ICollection<ILabel> LabelsList => _labels;
 
         public ILabel CurrentLabel => _currentLabel;
 
+
         public NovelEngine (SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphicsDeviceManager, ContentManager contentManager)
         {
             _labels = new List<ILabel>();
+
+            _components = new List<Component>();
+
 
             _spriteBatch = spriteBatch;
             _graphicsDevice = graphicsDevice;
@@ -46,7 +53,7 @@ namespace SNEngineLib
         {
             if (label == null)
             {
-                throw new NullReferenceException("this label is null");
+                throw new ArgumentNullException("this label is null");
             }
 
             if (_labels.Contains(label))
@@ -76,8 +83,6 @@ namespace SNEngineLib
 
             if (_labels.Count == 1)
             {
-                _currentIndexLabel = 0;
-
                 JumpToLabel(label);
             }
 
@@ -89,6 +94,10 @@ namespace SNEngineLib
             _currentLabel?.Dispose();
 
             _currentLabel = label;
+
+            _currentIndexLabel = _labels.IndexOf(label);
+
+            _currentLabel.Initialize();
 
 #if DEBUG
             Debug.WriteLine($"jumped to label: {_currentLabel.Name}");
@@ -107,6 +116,54 @@ namespace SNEngineLib
             {
 
                 throw;
+            }
+        }
+
+        private void AddComponent(Component component)
+        {
+            if (component == null)
+            {
+                throw new ArgumentNullException("component is null");
+            }
+
+            if (_components.Contains(component))
+            {
+                throw new ArgumentException("component contains");
+            }
+
+            _components.Add(component);
+        }
+
+        private void RemoveComponent(Component component)
+        {
+            if (component == null)
+            {
+                throw new ArgumentNullException("component is null");
+            }
+
+            if (!_components.Contains(component))
+            {
+                throw new ArgumentException("component not contains on list");
+            }
+
+            _components.Remove(component);
+        }
+
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            _currentLabel?.Display();
+
+            foreach (var component in _components)
+            {
+                component.Draw(gameTime, spriteBatch);
+            }
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            foreach (var component in _components)
+            {
+                component.Update(gameTime);
             }
         }
     }

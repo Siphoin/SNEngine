@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SNEngineLib;
+using System;
+using System.Diagnostics;
 
 namespace DemoSNEngine
 {
@@ -13,6 +15,10 @@ namespace DemoSNEngine
         private SpriteBatch _spriteBatch;
 
         private NovelEngine _novelEngine;
+
+        private TestLabel testLabel;
+
+        private LabelTwo labelTwo;
 
         public DemoGame()
         {
@@ -33,28 +39,59 @@ namespace DemoSNEngine
 
             _novelEngine = new NovelEngine(_spriteBatch, GraphicsDevice, _graphics, Content);
 
-            TestLabel testLabel = new TestLabel();
+            
+
+            testLabel = new TestLabel();
+
+            labelTwo = new LabelTwo();
 
 
             _novelEngine.AddLabel(testLabel);
 
-            testLabel.Initialize();
+            _novelEngine.AddLabel(labelTwo);
+
+        }
+
+        private void JumptoLabelTwo()
+        {
+                _novelEngine.JumpToLabel(labelTwo);
+
+            Debug.WriteLine(45);
+            
 
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            var keys = Keyboard.GetState().GetPressedKeys();
+            if (keys.Length > 0)
+            {
+                var k = keys[0];
+                switch (k)
+                {
+                    case Keys.Escape:
+                        {
+                            Exit();
+                            break;
+                        }
 
-            // TODO: Add your update logic here
+                    case Keys.S:
+                        {
+                            JumptoLabelTwo();
+                            break;
+                        }
+                }
+            }
+            _novelEngine.Update(gameTime);
+
+
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            _novelEngine.CurrentLabel.Display();
+            _novelEngine.Draw(gameTime, _spriteBatch);
 
             base.Draw(gameTime);
         }
