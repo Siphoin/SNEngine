@@ -32,7 +32,7 @@ namespace SNEngineLib.LabelSystem
 
             if (_graphicsDevice != null)
             {
-                throw new NullReferenceException("graphic device reference of label has seted");
+                throw new ArgumentException("graphic device reference of label has seted");
             }
 
             _graphicsDevice = graphicsDevice;
@@ -42,7 +42,7 @@ namespace SNEngineLib.LabelSystem
         {
             if (_graphics != null)
             {
-                throw new NullReferenceException("graphic device reference of label has seted");
+                throw new ArgumentException("graphic device reference of label has seted");
             }
 
             _graphics = graphicsDevice;
@@ -52,7 +52,7 @@ namespace SNEngineLib.LabelSystem
         {
             if (_spriteBatch != null)
             {
-                throw new NullReferenceException("sprite batch reference of label has seted");
+                throw new ArgumentException("sprite batch reference of label has seted");
             }
 
             _spriteBatch = spriteBatch;
@@ -110,7 +110,7 @@ namespace SNEngineLib.LabelSystem
         {
            if (contentManager == null)
             {
-                throw new NullReferenceException("content manager reference is null");
+                throw new ArgumentNullException("content manager reference is null");
             }
 
            _container.SetContentManager(contentManager);
