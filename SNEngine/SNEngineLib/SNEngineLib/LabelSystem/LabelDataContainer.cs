@@ -84,6 +84,8 @@ namespace SNEngineLib.LabelSystem
 
             _images.Clear();
 
+            // fix unloading system
+
             _content.Unload();
         }
     }

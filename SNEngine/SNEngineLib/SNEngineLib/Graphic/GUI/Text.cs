@@ -16,7 +16,7 @@ namespace SNEngineLib.Graphic.GUI
         public string TextContainer { get; set; }
 
         public Vector2 Position { get; set; } = new Vector2(0, 0);
-        public Color Color { get; set; } = Color.White;
+        public Color Color { get; set; } = Color.Black;
 
         public SpriteFont Font { get; set; }
 

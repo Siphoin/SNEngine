@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SNEngineLib.Core;
 using SNEngineLib.Graphic;
+using SNEngineLib.Graphic.GUI.Controls;
 using SNEngineLib.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -64,16 +65,35 @@ namespace SNEngineLib
 
             Window.Initialize(_graphics);
 
+            SpriteFont font = _contentManager.Load<SpriteFont>("engine_assets/fonts/arial");
+
+            Texture2D texture = _contentManager.Load<Texture2D>("engine_assets/gui/button");
+
+            Button button = new Button(texture, font);
+
+            button.Position = new Vector2(Window.Width / 2, Window.Height / 2);
+
+            button.OnClick += Button_OnClick;
+
             _panelDialog = new PanelDialog();
 
             _panelDialog.Initialize(_contentManager);
 
             AddComponent(_panelDialog);
 
+            AddComponent(button);
+
             _current = this;
 
             
             
+        }
+
+        private void Button_OnClick(object sender, EventArgs e)
+        {
+            bool show = !_panelDialog.IsShow;
+
+            _panelDialog.SetShowState(show);
         }
 
         public void AddLabel (ILabel label)
