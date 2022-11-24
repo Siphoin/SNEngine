@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using SNEngineLib.Graphic.GUI;
+using SNEngineLib.Core;
 using SNEngineLib.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -25,6 +25,8 @@ namespace SNEngineLib
         private GraphicsDeviceManager _graphics;
 
         private ContentManager _contentManager;
+
+        private PanelDialog _panelDialog;
 
         private static INovelEngine _current;
 
@@ -58,6 +60,8 @@ namespace SNEngineLib
             Screen.Initialize(_graphics);
 
             _current = this;
+
+            
             
         }
 
