@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SNEngineLib.Graphic.GUI;
 using SNEngineLib.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,10 @@ namespace SNEngineLib
 
         private ContentManager _contentManager;
 
+        private static INovelEngine _current;
+
+        public static INovelEngine Current => _current;
+
 
         private ILabel _currentLabel;
 
@@ -35,6 +40,11 @@ namespace SNEngineLib
 
         public NovelEngine (SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphicsDeviceManager, ContentManager contentManager)
         {
+            if (_current != null)
+            {
+                throw new Exception("Novel engine already initialized");
+            }
+
             _labels = new List<ILabel>();
 
             _components = new List<Component>();
@@ -46,6 +56,8 @@ namespace SNEngineLib
             _contentManager = contentManager;
 
             Screen.Initialize(_graphics);
+
+            _current = this;
             
         }
 
@@ -156,12 +168,16 @@ namespace SNEngineLib
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            _spriteBatch.Begin();
+
             _currentLabel?.Display();
 
             foreach (var component in _components)
             {
                 component.Draw(gameTime, spriteBatch);
             }
+
+            spriteBatch.End();
         }
 
         public override void Update(GameTime gameTime)

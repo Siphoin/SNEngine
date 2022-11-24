@@ -1,11 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using SNEngineLib;
 using SNEngineLib.LabelSystem;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DemoSNEngine.Labels
 {
@@ -21,6 +17,12 @@ namespace DemoSNEngine.Labels
 
         public override void Update(GameTime gameTime)
         {
+            bool state = Keyboard.GetState().IsKeyDown(Keys.D);
+
+            if (state)
+            {
+                NovelEngine.Current.JumpToLabel("Label_1");
+            }
         }
 
     }

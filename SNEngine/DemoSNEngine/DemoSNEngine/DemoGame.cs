@@ -38,39 +38,8 @@ namespace DemoSNEngine
 
         }
 
-        private void JumptoLabelTwo()
-        {
-            Engine.JumpToLabel(labelTwo);
-        }
-
         protected override void Update(GameTime gameTime)
         {
-            var keys = Keyboard.GetState().GetPressedKeys();
-            if (keys.Length > 0)
-            {
-                var k = keys[0];
-                switch (k)
-                {
-                    case Keys.Escape:
-                        {
-                            Exit();
-                            break;
-                        }
-
-                    case Keys.S:
-                        {
-                            JumptoLabelTwo();
-                            break;
-                        }
-
-                    case Keys.D:
-                        {
-                            Engine.JumpToLabel("Label_1");
-                            break;
-                        }
-                }
-            }
-
             base.Update(gameTime);
         }
 

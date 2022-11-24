@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using SNEngineLib;
 using SNEngineLib.LabelSystem;
 
 namespace DemoSNEngine.Labels
@@ -23,7 +25,12 @@ namespace DemoSNEngine.Labels
 
         public override void Update(GameTime gameTime)
         {
-            
+            bool state = Keyboard.GetState().IsKeyDown(Keys.S);
+
+            if (state)
+            {
+                NovelEngine.Current.JumpToLabel("Label_2");
+            }
         }
     }
 }

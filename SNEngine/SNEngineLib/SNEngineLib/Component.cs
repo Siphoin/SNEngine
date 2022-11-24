@@ -4,7 +4,7 @@ using SNEngineLib.Interfaces;
 
 namespace SNEngineLib
 {
-    public abstract class Component : IUpdatableComponent
+    public abstract class Component : IUpdatableComponent, IDrawableComponent
     {
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
 

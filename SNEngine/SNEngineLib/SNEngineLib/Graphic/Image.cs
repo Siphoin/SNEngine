@@ -33,5 +33,10 @@ namespace SNEngineLib.Graphic
 
         public Texture2D GetTexture()
             => _texture;
+
+        public void Dispose()
+        {
+            _texture?.Dispose();
+        }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace SNEngineLib.Interfaces
 {
-    public interface IGraphicObject
+    public interface IGraphicObject : IDisposable
     {
         public int Width { get; }
 

@@ -62,8 +62,6 @@ namespace SNEngineLib.LabelSystem
         {
             _graphicsDevice.Clear(Color.Gray);
 
-            _spriteBatch.Begin();
-
             if (_container.Background != null)
             {
                 IImage background = _container.Background;
@@ -78,8 +76,6 @@ namespace SNEngineLib.LabelSystem
             {
                 DrawImage(images[i]);
             }
-
-            _spriteBatch.End();
         }
 
         private void DrawImage (IImage image)

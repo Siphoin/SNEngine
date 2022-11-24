@@ -77,6 +77,11 @@ namespace SNEngineLib.LabelSystem
 
         public void Dispose()
         {
+            for (int i = 0; i < _images.Count; i++)
+            {
+                _images[i].Dispose();
+            }
+
             _images.Clear();
 
             _content.Unload();
