@@ -16,9 +16,13 @@ namespace SNEngineLib
     {
         private int _currentIndexLabel = -1;
 
+        public event Action<ILabel> LabelChanged;
+
         private List<ILabel> _labels;
 
         private List<Component> _components;
+
+        private Dictionary<string, ICharacter> _characters;
 
         private SpriteBatch _spriteBatch;
 
@@ -32,6 +36,8 @@ namespace SNEngineLib
 
         private static INovelEngine _current;
 
+        public IDictionary<string, ICharacter> Characters => _characters;
+
         public static INovelEngine Current => _current;
 
 
@@ -42,7 +48,6 @@ namespace SNEngineLib
         public ILabel CurrentLabel => _currentLabel;
 
         public IPanelDialog PanelDialog => _panelDialog;
-
 
         public NovelEngine (SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphicsDeviceManager, ContentManager contentManager)
         {
@@ -151,6 +156,8 @@ namespace SNEngineLib
 
             _currentLabel.Initialize();
 
+            LabelChanged?.Invoke(_currentLabel);
+
 #if DEBUG
             Debug.WriteLine($"jumped to label: {_currentLabel.Name}");
 #endif
@@ -199,6 +206,11 @@ namespace SNEngineLib
             }
 
             _components.Remove(component);
+        }
+
+        public bool CharacterExits(string id)
+        {
+            return _characters.ContainsKey(id);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

@@ -21,6 +21,11 @@ namespace SNEngineLib.Core
                 throw new ArgumentException("id of character not must be empty");
             }
 
+            if (NovelEngine.Current.CharacterExits(id))
+            {
+                throw new ArgumentException($"ID character {id} has exits on engine characters DB");
+            }
+
 
             Id = id.Trim();
 

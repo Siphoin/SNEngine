@@ -12,5 +12,7 @@ namespace SNEngineLib.Interfaces
         void JumpToLabel(string labelName);
 
         void AddLabel(ILabel label);
+
+        bool CharacterExits(string id);
     }
 }
