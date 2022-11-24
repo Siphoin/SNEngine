@@ -20,6 +20,12 @@ namespace DemoSNEngine
 
         protected override void Initialize()
         {
+            
+            Graphics.PreferredBackBufferWidth = 1200;
+            Graphics.PreferredBackBufferHeight = 720;
+            Graphics.ApplyChanges();
+
+            
             base.Initialize();
 
         }
@@ -36,11 +42,18 @@ namespace DemoSNEngine
 
             Engine.AddLabel(labelTwo);
 
+          //  Screen.SetFullScreen(true);
+
         }
 
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
+                Exit();
+            }
         }
 
         protected override void Draw(GameTime gameTime)

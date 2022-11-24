@@ -60,7 +60,6 @@ namespace SNEngineLib.LabelSystem
 
         public void Display()
         {
-            _graphicsDevice.Clear(Color.Gray);
 
             if (_container.Background != null)
             {

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SNEngineLib.Core;
+using SNEngineLib.Graphic;
 using SNEngineLib.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -39,6 +40,8 @@ namespace SNEngineLib
 
         public ILabel CurrentLabel => _currentLabel;
 
+        public IPanelDialog PanelDialog => _panelDialog;
+
 
         public NovelEngine (SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphicsDeviceManager, ContentManager contentManager)
         {
@@ -58,6 +61,14 @@ namespace SNEngineLib
             _contentManager = contentManager;
 
             Screen.Initialize(_graphics);
+
+            Window.Initialize(_graphics);
+
+            _panelDialog = new PanelDialog();
+
+            _panelDialog.Initialize(_contentManager);
+
+            AddComponent(_panelDialog);
 
             _current = this;
 
@@ -172,7 +183,9 @@ namespace SNEngineLib
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            _spriteBatch.Begin();
+            _graphicsDevice.Clear(Color.Gray);
+
+            spriteBatch.Begin();
 
             _currentLabel?.Display();
 
