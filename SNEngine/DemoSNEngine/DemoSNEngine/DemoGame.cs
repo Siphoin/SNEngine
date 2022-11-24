@@ -8,23 +8,14 @@ using System.Diagnostics;
 
 namespace DemoSNEngine
 {
-    public class DemoGame : Game
+    public class DemoGame : NovelGame
     {
-        private GraphicsDeviceManager _graphics;
-
-        private SpriteBatch _spriteBatch;
-
-        private NovelEngine _novelEngine;
-
         private TestLabel testLabel;
 
         private LabelTwo labelTwo;
 
-        public DemoGame()
+        public DemoGame() : base()
         {
-            _graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-            IsMouseVisible = true;
         }
 
         protected override void Initialize()
@@ -35,30 +26,21 @@ namespace DemoSNEngine
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            _novelEngine = new NovelEngine(_spriteBatch, GraphicsDevice, _graphics, Content);
-
-            
+            base.LoadContent();
 
             testLabel = new TestLabel();
 
             labelTwo = new LabelTwo();
 
+            Engine.AddLabel(testLabel);
 
-            _novelEngine.AddLabel(testLabel);
-
-            _novelEngine.AddLabel(labelTwo);
+            Engine.AddLabel(labelTwo);
 
         }
 
         private void JumptoLabelTwo()
         {
-                _novelEngine.JumpToLabel(labelTwo);
-
-            Debug.WriteLine(45);
-            
-
+            Engine.JumpToLabel(labelTwo);
         }
 
         protected override void Update(GameTime gameTime)
@@ -83,22 +65,17 @@ namespace DemoSNEngine
 
                     case Keys.D:
                         {
-                            _novelEngine.JumpToLabel("Label_1");
+                            Engine.JumpToLabel("Label_1");
                             break;
                         }
                 }
             }
-            _novelEngine.Update(gameTime);
-
-
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            _novelEngine.Draw(gameTime, _spriteBatch);
-
             base.Draw(gameTime);
         }
     }
