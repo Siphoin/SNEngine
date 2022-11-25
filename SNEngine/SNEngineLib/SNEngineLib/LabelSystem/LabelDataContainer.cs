@@ -77,7 +77,6 @@ namespace SNEngineLib.LabelSystem
 
         public void Dispose()
         {
-
             _images.Clear();
         }
     }
