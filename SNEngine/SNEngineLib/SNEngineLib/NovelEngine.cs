@@ -194,6 +194,7 @@ namespace SNEngineLib
                 throw new ArgumentException("component contains");
             }
 
+
             _components.Add(component);
         }
 
@@ -209,7 +210,10 @@ namespace SNEngineLib
                 throw new ArgumentException("component not contains on list");
             }
 
+
             _components.Remove(component);
+
+
         }
 
         public bool CharacterExits(string id)
@@ -245,6 +249,11 @@ namespace SNEngineLib
             }
 
             _currentLabel?.Update(gameTime);
+        }
+
+        public  void Dispose()
+        {
+            _panelDialog?.Dispose();
         }
     }
 }

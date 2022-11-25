@@ -6,6 +6,9 @@ namespace SNEngineLib
 {
     public static class Screen
     {
+
+        public static event Action<Vector2> OnFullScreen;
+
         private static GraphicsDeviceManager _graphic;
 
         public static int Width => GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -27,6 +30,12 @@ namespace SNEngineLib
 
         public static void SetFullScreen(bool fullScreen)
         {
+            if (fullScreen == FullScreen)
+            {
+                return;
+            }
+
+
             _graphic.PreferredBackBufferWidth = Width;
             _graphic.PreferredBackBufferHeight = Height;
 
@@ -35,6 +44,10 @@ namespace SNEngineLib
             _graphic.IsFullScreen = FullScreen;
 
             _graphic.ApplyChanges();
+
+            Vector2 screenSize = new Vector2(_graphic.PreferredBackBufferWidth, _graphic.PreferredBackBufferHeight);
+
+            OnFullScreen?.Invoke(screenSize);
         }
 
 

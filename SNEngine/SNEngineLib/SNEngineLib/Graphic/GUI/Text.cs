@@ -46,7 +46,7 @@ namespace SNEngineLib.Graphic.GUI
             throw new NotImplementedException();
         }
 
-        public void Dispose()
+        public  void Dispose()
         {
             Font = null;
 

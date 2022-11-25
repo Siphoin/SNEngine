@@ -104,7 +104,7 @@ namespace SNEngineLib.Graphic.GUI.Controls
 
         }
 
-        public void Dispose()
+        public  void Dispose()
         {
            Text.Dispose();
 

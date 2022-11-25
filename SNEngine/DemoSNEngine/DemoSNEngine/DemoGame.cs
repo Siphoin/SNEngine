@@ -42,8 +42,6 @@ namespace DemoSNEngine
 
             Engine.AddLabel(labelTwo);
 
-           // Screen.SetFullScreen(true);
-
         }
 
         protected override void Update(GameTime gameTime)

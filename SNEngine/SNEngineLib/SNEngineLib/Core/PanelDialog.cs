@@ -8,7 +8,7 @@ using System;
 
 namespace SNEngineLib.Core
 {
-    public class PanelDialog : Component, IPanelDialog
+    public class PanelDialog : Component, IPanelDialog, IDisposable
     {
 
         private bool _isShow;
@@ -21,8 +21,9 @@ namespace SNEngineLib.Core
 
         public PanelDialog ()
         {
-
             _isShow = true;
+
+            IsUpdatable = false;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -38,7 +39,7 @@ namespace SNEngineLib.Core
 
         public override void Update(GameTime gameTime)
         {
-            
+            throw new NotImplementedException();
         }
 
         internal void Initialize(ContentManager contentManager)
@@ -47,6 +48,8 @@ namespace SNEngineLib.Core
             {
                 throw new ArgumentNullException(nameof(contentManager));
             }
+
+            Screen.OnFullScreen += Resize;
 
             SpriteFont font = contentManager.Load<SpriteFont>("engine_assets/fonts/arial");
 
@@ -63,9 +66,23 @@ namespace SNEngineLib.Core
 
         }
 
+        private void Resize(Vector2 obj)
+        {
+            float y = Window.Width;
+
+            _imagePanel.Position = new Vector2(0, y / 2);
+        }
+
         public void SetShowState(bool state)
         {
             _isShow = state;
+        }
+
+        public void Dispose()
+        {
+            Screen.OnFullScreen -= Resize;
+
+            _imagePanel.Dispose();
         }
     }
 }

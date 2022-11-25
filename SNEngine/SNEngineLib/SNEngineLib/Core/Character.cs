@@ -48,5 +48,10 @@ namespace SNEngineLib.Core
         {
             throw new NotImplementedException();
         }
+
+        public  void Dispose()
+        {
+            _image?.Dispose();
+        }
     }
 }
