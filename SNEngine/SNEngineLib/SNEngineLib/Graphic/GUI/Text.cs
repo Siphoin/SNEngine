@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SNEngineLib.Interfaces;
+using System;
 
 namespace SNEngineLib.Graphic.GUI
 {
@@ -11,7 +12,7 @@ namespace SNEngineLib.Graphic.GUI
 
         public int Width => throw new System.NotImplementedException();
 
-        public int Height => throw new System.NotImplementedException();
+        public int Height => throw new NotImplementedException();
 
         public string TextContainer { get; set; }
 
@@ -27,6 +28,8 @@ namespace SNEngineLib.Graphic.GUI
                 throw new System.ArgumentNullException((nameof(font)));
             }
 
+            IsUpdatable = false;
+
             Font = font;
 
             TextContainer = "New Text";
@@ -40,7 +43,7 @@ namespace SNEngineLib.Graphic.GUI
 
         public override void Update(GameTime gameTime)
         {
-            return;
+            throw new NotImplementedException();
         }
 
         public void Dispose()

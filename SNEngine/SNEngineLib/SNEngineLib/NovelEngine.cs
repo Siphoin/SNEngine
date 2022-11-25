@@ -75,7 +75,7 @@ namespace SNEngineLib
             Texture2D texture = _contentManager.Load<Texture2D>("engine_assets/gui/button");
 
 
-            Button button = new Button(texture, font);
+            Button button = new Button(texture, font, 500);
 
             button.Position = new Vector2(Window.Bounds.Width / 2, Window.Bounds.Height / 2);
 
@@ -237,7 +237,11 @@ namespace SNEngineLib
         {
             foreach (var component in _components)
             {
-                component.Update(gameTime);
+               if (component.IsUpdatable)
+                {
+                 component.Update(gameTime);
+                }
+
             }
 
             _currentLabel?.Update(gameTime);
