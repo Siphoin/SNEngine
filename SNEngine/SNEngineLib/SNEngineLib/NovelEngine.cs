@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SNEngineLib.Core;
 using SNEngineLib.Graphic;
-using SNEngineLib.Graphic.GUI.Controls;
 using SNEngineLib.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -14,6 +13,8 @@ namespace SNEngineLib
 {
     public class NovelEngine : Component, INovelEngine
     {
+        private bool _isFirstLabel;
+
         private int _currentIndexLabel = -1;
 
         public event Action<ILabel> LabelChanged;
@@ -34,11 +35,13 @@ namespace SNEngineLib
 
         private PanelDialog _panelDialog;
 
-        private static INovelEngine _current;
+        private static INovelEngine _instance;
+
+        public int CountLabels { get { return _labels.Count; } }
 
         public IDictionary<string, ICharacter> Characters => _characters;
 
-        public static INovelEngine Current => _current;
+        public static INovelEngine Current => _instance;
 
 
         private ILabel _currentLabel;
@@ -51,7 +54,7 @@ namespace SNEngineLib
 
         public NovelEngine (SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphicsDeviceManager, ContentManager contentManager, GameWindow gameWindow)
         {
-            if (_current != null)
+            if (_instance != null)
             {
                 throw new Exception("Novel engine already initialized");
             }
@@ -70,32 +73,15 @@ namespace SNEngineLib
 
             Window.Initialize(_graphics, gameWindow);
 
-            SpriteFont font = _contentManager.Load<SpriteFont>("engine_assets/fonts/arial");
-
-            Texture2D texture = _contentManager.Load<Texture2D>("engine_assets/gui/button");
-
-
-            Button button = new Button(texture, font, 500);
-
-            button.Position = new Vector2(Window.Bounds.Width / 2, Window.Bounds.Height / 2);
-
-
-
-
-            button.OnClick += Button_OnClick;
-
             _panelDialog = new PanelDialog();
 
             _panelDialog.Initialize(_contentManager);
 
             AddComponent(_panelDialog);
 
-            AddComponent(button);
+            _instance = this;
 
-            _current = this;
-
-            
-            
+            _isFirstLabel = true;
         }
 
         private void Button_OnClick(object sender, EventArgs e)
@@ -137,9 +123,14 @@ namespace SNEngineLib
             Debug.WriteLine($"added new label: {label.Name}");
 #endif
 
-            if (_labels.Count == 1)
+            if (CountLabels == 1)
             {
                 JumpToLabel(label);
+            }
+
+            else if (CountLabels > 1)
+            {
+                _isFirstLabel = false;
             }
 
 
@@ -160,7 +151,13 @@ namespace SNEngineLib
 
             _currentLabel.Initialize();
 
-            LabelChanged?.Invoke(_currentLabel);
+            if (!_isFirstLabel)
+            {
+                LabelChanged?.Invoke(_currentLabel);
+            }
+
+
+
 
 #if DEBUG
             Debug.WriteLine($"jumped to label: {_currentLabel.Name}");
@@ -225,7 +222,7 @@ namespace SNEngineLib
         {
             _graphicsDevice.Clear(Color.Gray);
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.BackToFront);
 
             _currentLabel?.Display();
 

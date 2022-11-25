@@ -22,8 +22,8 @@ namespace SNEngineLib.LabelSystem
         public LabelDataContainer ()
         {
             _images = new List<IImage>();
-        }
 
+        }
 
         public void SetContentManager(ContentManager manager)
         {
@@ -77,16 +77,8 @@ namespace SNEngineLib.LabelSystem
 
         public void Dispose()
         {
-            for (int i = 0; i < _images.Count; i++)
-            {
-                _images[i].Dispose();
-            }
 
             _images.Clear();
-
-            // fix unloading system
-
-            _content.Unload();
         }
     }
 }
