@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SNEngineLib.Interfaces;
+using System.Diagnostics;
 
 namespace SNEngineLib
 {
@@ -23,13 +24,14 @@ namespace SNEngineLib
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _novelEngine = new NovelEngine(_spriteBatch, GraphicsDevice, _graphics, Content);
+            _novelEngine = new NovelEngine(_spriteBatch, GraphicsDevice, _graphics, Content, Window);
 
             base.LoadContent();
         }

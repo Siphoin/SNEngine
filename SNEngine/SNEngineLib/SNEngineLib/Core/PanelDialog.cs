@@ -52,7 +52,9 @@ namespace SNEngineLib.Core
 
             Texture2D texturePanel = contentManager.Load<Texture2D>("engine_assets/gui/window_dialog");
 
-            _imagePanel = new Image(texturePanel, new Vector2(0, Window.Width / 2));
+            float y = Screen.FullScreen ? Screen.Width : Window.Width;
+
+            _imagePanel = new Image(texturePanel, new Vector2(0, y / 2));
 
             _textDialog = new Text(font);
 

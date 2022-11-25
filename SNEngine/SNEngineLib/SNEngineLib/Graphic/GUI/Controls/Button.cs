@@ -26,13 +26,13 @@ namespace SNEngineLib.Graphic.GUI.Controls
         public Text Text { get; private set; }
 
         public Vector2 Position { get; set; } = new Vector2(0, 0);
-        public Color Color { get; set; } = new Color(255, 255, 255, 0);
+        public Color Color { get; set; } = new Color(255, 255, 255, 255);
 
         public Rectangle Rectangle
         {
             get
             {
-                return new Rectangle((int)Position.X, (int)Position.Y, Width, Height);
+                return new Rectangle((int)Position.X - (Width / 2), (int)Position.Y - (Height / 2), Width, Height);
             }
         }
 
@@ -66,7 +66,7 @@ namespace SNEngineLib.Graphic.GUI.Controls
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
 
-           Color backgroundState = _isHovering ? Color.Gray : Color;
+            Color backgroundState = _isHovering ? Color.Gray : Color;
                 
             spriteBatch.Draw(_backgroundButton.GetTexture(), Rectangle, backgroundState);
 

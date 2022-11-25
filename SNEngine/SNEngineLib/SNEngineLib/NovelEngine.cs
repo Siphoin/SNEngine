@@ -49,7 +49,7 @@ namespace SNEngineLib
 
         public IPanelDialog PanelDialog => _panelDialog;
 
-        public NovelEngine (SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphicsDeviceManager, ContentManager contentManager)
+        public NovelEngine (SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphicsDeviceManager, ContentManager contentManager, GameWindow gameWindow)
         {
             if (_current != null)
             {
@@ -68,15 +68,19 @@ namespace SNEngineLib
 
             Screen.Initialize(_graphics);
 
-            Window.Initialize(_graphics);
+            Window.Initialize(_graphics, gameWindow);
 
             SpriteFont font = _contentManager.Load<SpriteFont>("engine_assets/fonts/arial");
 
             Texture2D texture = _contentManager.Load<Texture2D>("engine_assets/gui/button");
 
+
             Button button = new Button(texture, font);
 
-            button.Position = new Vector2(Window.Width / 2, Window.Height / 2);
+            button.Position = new Vector2(Window.Bounds.Width / 2, Window.Bounds.Height / 2);
+
+
+
 
             button.OnClick += Button_OnClick;
 

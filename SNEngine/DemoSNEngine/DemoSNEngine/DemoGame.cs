@@ -42,7 +42,7 @@ namespace DemoSNEngine
 
             Engine.AddLabel(labelTwo);
 
-          //  Screen.SetFullScreen(true);
+           // Screen.SetFullScreen(true);
 
         }
 
