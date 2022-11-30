@@ -36,18 +36,27 @@ namespace SNEngineLib.Graphic.GUI.Controls
             }
         }
 
-        
+        public Vector2 Origin
+        {
+            get
+            {
+                float x = Width / 2;
+                float y = Height / 2;
 
-        public Button (Texture2D textureBackground, SpriteFont font, int width = 300, int height = 100, string text = "New Button")
+                return new Vector2(x, y);
+            }
+        }
+
+        public Button (Texture2D textureBackground = null, SpriteFont font = null, int width = 300, int height = 100, string text = "New Button")
         {
             if (textureBackground == null)
             {
-                throw new ArgumentNullException(nameof(textureBackground));
+                textureBackground = (Texture2D)NovelEngine.Current.ContentPipeline.GetAssetEngine("gui/button");
             }
 
             if (font == null)
             {
-                throw new ArgumentNullException(nameof(font));
+               font = (SpriteFont)NovelEngine.Current.ContentPipeline.GetAssetEngine("fonts/button_font");
             }
 
             Width = width;

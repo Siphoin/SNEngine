@@ -42,18 +42,14 @@ namespace SNEngineLib.Core
             throw new NotImplementedException();
         }
 
-        internal void Initialize(ContentManager contentManager)
+        internal void Initialize()
         {
-            if (contentManager == null)
-            {
-                throw new ArgumentNullException(nameof(contentManager));
-            }
-
+            IContentPipeline content = NovelEngine.Current.ContentPipeline;
             Screen.OnFullScreen += Resize;
 
-            SpriteFont font = contentManager.Load<SpriteFont>("engine_assets/fonts/arial");
+            SpriteFont font = (SpriteFont)content.GetAssetEngine("fonts/window_dialog_font");
 
-            Texture2D texturePanel = contentManager.Load<Texture2D>("engine_assets/gui/window_dialog");
+            Texture2D texturePanel = (Texture2D)content.GetAssetEngine("gui/window_dialog");
 
             float y = Screen.FullScreen ? Screen.Width : Window.Width;
 

@@ -10,7 +10,7 @@ namespace SNEngineLib.Graphic.GUI
 
 
 
-        public int Width => throw new System.NotImplementedException();
+        public int Width => throw new NotImplementedException();
 
         public int Height => throw new NotImplementedException();
 
@@ -21,11 +21,23 @@ namespace SNEngineLib.Graphic.GUI
 
         public SpriteFont Font { get; set; }
 
-        public Text (SpriteFont font)
+        public Vector2 Origin
+        {
+            get
+            {
+                float x = Width / 2;
+                float y = Height / 2;
+
+                return new Vector2(x, y);
+            }
+        }
+
+
+        public Text (SpriteFont font = null)
         {
             if (font == null)
             {
-                throw new System.ArgumentNullException((nameof(font)));
+                font = (SpriteFont)NovelEngine.Current.ContentPipeline.GetAssetEngine("fonts/default_font");
             }
 
             IsUpdatable = false;

@@ -15,6 +15,17 @@ namespace SNEngineLib.Graphic
 
         public int Height => _texture.Height;
 
+        public Vector2 Origin
+        {
+            get
+            {
+                float x = _texture.Width / 2;
+                float y = _texture.Height / 2;
+
+                return new Vector2(x, y);
+            }
+        }
+
         public Image ()
         {
 

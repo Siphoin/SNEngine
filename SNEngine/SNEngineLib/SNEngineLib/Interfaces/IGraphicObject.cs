@@ -8,6 +8,9 @@ namespace SNEngineLib.Interfaces
         public int Width { get; }
 
         public int Height { get; }
+
+        public Vector2 Origin { get; }
+
         public Vector2 Position { get; set; }
 
         public Color Color { get; set; }

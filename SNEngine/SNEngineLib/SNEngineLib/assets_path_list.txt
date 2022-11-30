@@ -1,0 +1,5 @@
+﻿Texture2D: gui/button
+Texture2D: gui/window_dialog
+SpriteFont: fonts/window_dialog_font
+SpriteFont: fonts/default_font
+SpriteFont: fonts/button_font

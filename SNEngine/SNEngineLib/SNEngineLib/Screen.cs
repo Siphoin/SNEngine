@@ -21,7 +21,7 @@ namespace SNEngineLib
         {
             if (graphicsDeviceManager == null)
             {
-                throw new NullReferenceException("graphic device manager reference is null");
+                throw new ArgumentException("graphic device manager reference is null");
             }
             _graphic = graphicsDeviceManager;
 

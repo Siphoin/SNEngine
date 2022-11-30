@@ -8,6 +8,14 @@
     <None Remove="images\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="assets_path_list.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets_path_list.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>

@@ -18,7 +18,21 @@
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:engine_assets/fonts/arial.spritefont
+/build:engine_assets/fonts/arial.spritefont;engine_assets/fonts/button_font.spritefont
+
+#begin engine_assets/fonts/default_font.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:engine_assets/fonts/default_font.spritefont
+
+#begin engine_assets/fonts/window_dialog_font.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:engine_assets/fonts/window_dialog_font.spritefont
 
 #begin engine_assets/gui/button.png
 /importer:TextureImporter

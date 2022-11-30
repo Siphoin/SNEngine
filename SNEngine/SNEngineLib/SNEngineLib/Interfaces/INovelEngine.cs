@@ -9,6 +9,8 @@ namespace SNEngineLib.Interfaces
 
         ILabel CurrentLabel { get; }
 
+        IContentPipeline ContentPipeline { get; }
+
         event Action<ILabel> LabelChanged;
 
         ICollection<ILabel> LabelsList { get; }

@@ -1,13 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SNEngineLib.Content;
 using SNEngineLib.Core;
 using SNEngineLib.Graphic;
+using SNEngineLib.Graphic.GUI.Controls;
 using SNEngineLib.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 
 namespace SNEngineLib
 {
@@ -33,6 +36,8 @@ namespace SNEngineLib
 
         private ContentManager _contentManager;
 
+        private ContentPipeline _contentPipeline;
+
         private PanelDialog _panelDialog;
 
         private static INovelEngine _instance;
@@ -42,6 +47,8 @@ namespace SNEngineLib
         public IDictionary<string, ICharacter> Characters => _characters;
 
         public static INovelEngine Current => _instance;
+
+        public IContentPipeline ContentPipeline => _contentPipeline;
 
 
         private ILabel _currentLabel;
@@ -59,6 +66,8 @@ namespace SNEngineLib
                 throw new Exception("Novel engine already initialized");
             }
 
+            _instance = this;
+
             _labels = new List<ILabel>();
 
             _components = new List<Component>();
@@ -73,22 +82,24 @@ namespace SNEngineLib
 
             Window.Initialize(_graphics, gameWindow);
 
+            _contentPipeline = new ContentPipeline();
+
+            _contentPipeline.Initialize(contentManager);
+
+            _contentPipeline.LoadData();
+
+            while (!_contentPipeline.IsFinishLoadingAssetsEngine)
+            {
+                Thread.Sleep(1000);
+            }
+
             _panelDialog = new PanelDialog();
 
-            _panelDialog.Initialize(_contentManager);
+            _panelDialog.Initialize();
 
             AddComponent(_panelDialog);
 
-            _instance = this;
-
             _isFirstLabel = true;
-        }
-
-        private void Button_OnClick(object sender, EventArgs e)
-        {
-            bool show = !_panelDialog.IsShow;
-
-            _panelDialog.SetShowState(show);
         }
 
         public void AddLabel (ILabel label)
@@ -155,6 +166,8 @@ namespace SNEngineLib
             {
                 LabelChanged?.Invoke(_currentLabel);
             }
+
+
 
 
 
