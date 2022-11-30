@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SNEngineLib.Graphic;
 using SNEngineLib.Graphic.GUI;
@@ -57,7 +56,7 @@ namespace SNEngineLib.Core
 
             _textDialog = new Text(font);
 
-            _imagePanel.Color = new Color(255, 255, 255, 125);
+            _imagePanel.Color = Color.White;
 
 
         }

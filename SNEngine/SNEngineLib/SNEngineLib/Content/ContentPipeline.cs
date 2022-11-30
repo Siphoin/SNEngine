@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Pipes;
 using System.Text;
 
 namespace SNEngineLib.Content
@@ -48,8 +49,12 @@ namespace SNEngineLib.Content
 
         internal void LoadData ()
         {
+            using (StreamReader readtext = new StreamReader(PATH_TO_FILE))
+            {
+                string  readText =  readtext.ReadToEnd();
 
-            LoadAssets(File.ReadAllText(PATH_TO_FILE));
+                LoadAssets(readText);
+            }
         }
 
         private void LoadAssets (string data)
