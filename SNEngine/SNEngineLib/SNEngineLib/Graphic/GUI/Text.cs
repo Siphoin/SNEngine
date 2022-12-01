@@ -39,7 +39,7 @@ namespace SNEngineLib.Graphic.GUI
         {
             if (font == null)
             {
-                font = (SpriteFont)NovelEngine.Current.ContentPipeline.GetAssetEngine("fonts/default_font");
+                font = NovelEngine.Current.ContentPipeline.GetAssetEngine<SpriteFont>("fonts/default_font");
             }
 
             IsUpdatable = false;

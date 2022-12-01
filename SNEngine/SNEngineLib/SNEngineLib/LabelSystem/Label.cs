@@ -107,17 +107,6 @@ namespace SNEngineLib.LabelSystem
 #endif
         }
 
-        public void SetContentManager(ContentManager contentManager)
-        {
-           if (contentManager == null)
-            {
-                throw new ArgumentNullException("content manager reference is null");
-            }
-
-           _container.SetContentManager(contentManager);
-           
-        }
-
         public void Dispose()
         {
             _container.Dispose();

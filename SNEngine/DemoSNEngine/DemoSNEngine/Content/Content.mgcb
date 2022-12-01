@@ -58,6 +58,18 @@
 /processorParam:TextureFormat=Color
 /build:engine_assets/gui/window_dialog.png
 
+#begin engine_assets/templates/shadow_charaacter.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:engine_assets/templates/shadow_charaacter.png;engine_assets/templates/shadow_character.png
+
 #begin Img/apple.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -70,7 +82,7 @@
 /processorParam:TextureFormat=Color
 /build:Img/apple.png
 
-#begin Img/school_background_2.jpg
+#begin Img/backgrounds/school_background_2.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -80,9 +92,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Img/school_background_2.jpg
+/build:Img/backgrounds/school_background_2.jpg
 
-#begin Img/school_background.jpg
+#begin Img/backgrounds/school_background.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -92,5 +104,41 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Img/school_background.jpg
+/build:Img/backgrounds/school_background.jpg
+
+#begin Img/characters/eileen/eileen_concerned.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Img/characters/eileen/eileen_concerned.png
+
+#begin Img/characters/eileen/eileen_happy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Img/characters/eileen/eileen_happy.png
+
+#begin Img/characters/eileen/eileen_normal.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Img/characters/eileen/eileen_normal.png
 

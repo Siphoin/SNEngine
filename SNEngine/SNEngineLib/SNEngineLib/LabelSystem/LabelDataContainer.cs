@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SNEngineLib.Graphic;
 using SNEngineLib.Interfaces;
@@ -14,11 +13,11 @@ namespace SNEngineLib.LabelSystem
 
         private Image _background;
 
-        private ContentManager _content;
-
         public ICollection<IImage> Images => _images;
 
         public IImage Background => _background;
+
+        private IContentPipeline ContentPipeline => NovelEngine.Current.ContentPipeline;
 
         public LabelDataContainer ()
         {
@@ -26,18 +25,9 @@ namespace SNEngineLib.LabelSystem
 
         }
 
-        public void SetContentManager(ContentManager manager)
-        {
-            if (_content != null)
-            {
-                throw new Exception("content manager link seted on container label");
-            }
-            _content = manager;
-        }
-
         public T LoadAsset<T>(string path, bool isImage = false)
         {
-            T asset = _content.Load<T>(path);
+            T asset = ContentPipeline.LoadAsset<T>(path);
 
             if (isImage)
             {
@@ -51,7 +41,7 @@ namespace SNEngineLib.LabelSystem
         {
             try
             {
-                Texture2D texture = _content.Load<Texture2D>(path);
+                Texture2D texture = ContentPipeline.LoadAsset<Texture2D>(path);
 
                 _background = new Image(texture);
 

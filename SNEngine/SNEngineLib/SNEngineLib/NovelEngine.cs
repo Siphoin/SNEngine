@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SNEngineLib.Content;
-using SNEngineLib.Converters;
 using SNEngineLib.Core;
 using SNEngineLib.Graphic;
 using SNEngineLib.Graphic.GUI;
@@ -74,6 +73,7 @@ namespace SNEngineLib
 
             _components = new List<Component>();
 
+            _characters = new Dictionary<string, ICharacter>();
 
             _spriteBatch = spriteBatch;
             _graphicsDevice = graphicsDevice;
@@ -119,8 +119,6 @@ namespace SNEngineLib
             label.SetSpriteBatch(_spriteBatch);
 
             label.SetGraphicDevice(_graphicsDevice);
-
-            label.SetContentManager(_contentManager);
 
             label.SetGraphicDeviceManager(_graphics);
 
@@ -169,14 +167,44 @@ namespace SNEngineLib
                 LabelChanged?.Invoke(_currentLabel);
             }
 
-
-
-
-
+            HideAllCharacters();
 
 #if DEBUG
             Debug.WriteLine($"jumped to label: {_currentLabel.Name}");
 #endif
+        }
+        public void AddCharacter (ICharacter character)
+        {
+            if (character == null)
+            {
+                throw new ArgumentNullException(nameof(character));
+            }
+
+            if (_characters.ContainsKey(character.Id))
+            {
+                throw new ArgumentException($"character of id {character.Id} exits on db characters");
+            }
+
+            character.OnSayoing += ShowPanelDialog;
+
+            _characters.Add(character.Id, character);
+
+            AddComponent((Character)character);
+        }
+
+        private void ShowPanelDialog(string name, string text)
+        {
+            _panelDialog.SetShowState(true);
+        }
+
+        private void HideAllCharacters()
+        {
+            foreach (var item in _characters)
+            {
+                ICharacter character = item.Value;
+
+                character.Hide();
+            }
         }
 
         public void JumpToLabel(string labelName)

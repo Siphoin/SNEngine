@@ -55,12 +55,12 @@ namespace SNEngineLib.Graphic.GUI.Controls
         {
             if (textureBackground == null)
             {
-                textureBackground = (Texture2D)NovelEngine.Current.ContentPipeline.GetAssetEngine("gui/button");
+                textureBackground = NovelEngine.Current.ContentPipeline.GetAssetEngine<Texture2D>("gui/button");
             }
 
             if (font == null)
             {
-               font = (SpriteFont)NovelEngine.Current.ContentPipeline.GetAssetEngine("fonts/button_font");
+               font = NovelEngine.Current.ContentPipeline.GetAssetEngine<SpriteFont>("fonts/button_font");
             }
 
             Width = width;

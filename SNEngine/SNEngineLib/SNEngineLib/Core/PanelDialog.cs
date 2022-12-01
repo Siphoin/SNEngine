@@ -18,7 +18,7 @@ namespace SNEngineLib.Core
 
         public bool IsShow => _isShow;
 
-        public PanelDialog ()
+        public PanelDialog()
         {
             _isShow = true;
 
@@ -31,7 +31,7 @@ namespace SNEngineLib.Core
             {
                 return;
             }
-            spriteBatch.Draw(_imagePanel.GetTexture(), new Rectangle((int)_imagePanel.Position.X, (int)_imagePanel.Position.Y, Screen.Width, _imagePanel.Height),
+            spriteBatch.Draw(_imagePanel.GetTexture(), new Rectangle((int)_imagePanel.Position.X, (int)_imagePanel.Position.Y, 300, _imagePanel.Height),
             new Rectangle(0, 0, _imagePanel.Width, _imagePanel.Height),
             _imagePanel.Color);
         }
@@ -44,11 +44,12 @@ namespace SNEngineLib.Core
         internal void Initialize()
         {
             IContentPipeline content = NovelEngine.Current.ContentPipeline;
+
             Screen.OnFullScreen += Resize;
 
-            SpriteFont font = (SpriteFont)content.GetAssetEngine("fonts/window_dialog_font");
+            SpriteFont font = content.GetAssetEngine<SpriteFont>("fonts/window_dialog_font");
 
-            Texture2D texturePanel = (Texture2D)content.GetAssetEngine("gui/window_dialog");
+            Texture2D texturePanel = content.GetAssetEngine<Texture2D>("gui/window_dialog");
 
             float y = Screen.FullScreen ? Screen.Width : Window.Width;
 

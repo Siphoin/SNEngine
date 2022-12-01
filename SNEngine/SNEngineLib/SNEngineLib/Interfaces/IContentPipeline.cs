@@ -2,6 +2,7 @@
 {
     public interface IContentPipeline
     {
-        object GetAssetEngine(string path);
+        T GetAssetEngine<T>(string path);
+        T LoadAsset<T>(string path);
     }
 }

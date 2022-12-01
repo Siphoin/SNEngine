@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SNEngineLib;
+using SNEngineLib.Core;
 using System;
 using System.Diagnostics;
 
@@ -10,9 +11,9 @@ namespace DemoSNEngine
 {
     public class DemoGame : NovelGame
     {
-        private TestLabel testLabel;
+        private FirstLabel _firstLabel;
 
-        private LabelTwo labelTwo;
+        private SecondLabel _secondLabel;
 
         public DemoGame() : base()
         {
@@ -32,15 +33,23 @@ namespace DemoSNEngine
 
         protected override void LoadContent()
         {
+
             base.LoadContent();
 
-            testLabel = new TestLabel();
+            _firstLabel = new FirstLabel();
 
-            labelTwo = new LabelTwo();
+            _secondLabel = new SecondLabel();
 
-            Engine.AddLabel(testLabel);
+            Engine.AddLabel(_firstLabel);
 
-            Engine.AddLabel(labelTwo);
+            Engine.AddLabel(_secondLabel);
+
+            Character[] characters = new Character[]
+{
+                new Character("el", Color.Aqua)
+};
+
+            AddCharacters(characters);
 
         }
 

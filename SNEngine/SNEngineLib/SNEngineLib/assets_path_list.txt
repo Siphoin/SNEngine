@@ -1,4 +1,5 @@
-﻿Texture2D: gui/button
+﻿Texture2D: templates/shadow_character
+Texture2D: gui/button
 Texture2D: gui/window_dialog
 SpriteFont: fonts/window_dialog_font
 SpriteFont: fonts/default_font

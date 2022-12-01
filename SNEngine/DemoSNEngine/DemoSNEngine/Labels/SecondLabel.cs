@@ -5,7 +5,7 @@ using SNEngineLib.LabelSystem;
 
 namespace DemoSNEngine.Labels
 {
-    public class LabelTwo : Label
+    public class SecondLabel : Label
     {
 
         public override void Initialize()

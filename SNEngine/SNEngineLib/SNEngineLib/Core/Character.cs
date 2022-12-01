@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SNEngineLib.Converters;
 using SNEngineLib.Graphic;
 using SNEngineLib.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace SNEngineLib.Core
 {
@@ -11,9 +11,13 @@ namespace SNEngineLib.Core
     {
         private Image _image;
 
+        public event Action<string, string> OnSayoing;
+
+        private Dictionary<string, Texture2D> _states;
+
         public string Id { get; private set; }
 
-        public bool IsDisplayed { get; private set; }
+        internal bool IsDisplayed { get; private set; }
 
         public Color ColorName { get; private set; }
 
@@ -34,35 +38,31 @@ namespace SNEngineLib.Core
 
             ColorName = colorName;
 
-            _image = new Image();
-
-            IsDisplayed = false;
-        }
-
-        public Character(string id, string coloRHex)
-        {
-            if (string.IsNullOrEmpty(id))
-            {
-                throw new ArgumentException("id of character not must be empty");
-            }
-
-            if (NovelEngine.Current.CharacterExits(id))
-            {
-                throw new ArgumentException($"ID character {id} has exits on engine characters DB");
-            }
+            Texture2D shadowCharacter = NovelEngine.Current.ContentPipeline.GetAssetEngine<Texture2D>("templates/shadow_character");
 
 
-            Id = id.Trim();
+            _image = new Image(shadowCharacter);
 
-            ColorName = HexColorConverter.ColorFromHex(coloRHex);
+            Vector2 startPosition = new Vector2(Window.Width / 2 - (_image.Width / 2), 0);
 
-            _image = new Image();
+            _image.Position = startPosition;
 
-            IsDisplayed = false;
+            IsDisplayed = true;
+
+            _states = new Dictionary<string, Texture2D>();
+
+            IsUpdatable = false;
+
+
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            if (!IsDisplayed)
+            {
+                return;
+            }
+
             spriteBatch.Draw(_image.GetTexture(), _image.Position, _image.Color);
         }
 
@@ -71,10 +71,14 @@ namespace SNEngineLib.Core
             throw new NotImplementedException();
         }
 
-        public void Say(string fileName)
+        public void Say(string name, string text)
         {
-            throw new NotImplementedException();
+            OnSayoing?.Invoke(name, text);
         }
+
+        public void Show (string emotion = "normal") => IsDisplayed = true;
+
+        public void Hide () => IsDisplayed = false;
 
         public  void Dispose()
         {

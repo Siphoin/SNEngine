@@ -110,6 +110,7 @@ namespace SNEngineLib.Content
                     default:
                         throw new ParseException($"type of asset {typeString} not found");
                 }
+                Debug.WriteLine(pathAsset);
                 _assets.Add(pathAsset, asset);
 
 
@@ -122,14 +123,22 @@ namespace SNEngineLib.Content
 #endif
         }
 
-        public object GetAssetEngine(string path)
+        public T GetAssetEngine<T>(string path)
         {
             if (!_assets.ContainsKey(path))
             {
                 throw new KeyNotFoundException($"asset in path {path} not found");
             }
 
-            return _assets[path];
+            return(T)_assets[path];
+        }
+
+        public T LoadAsset<T>(string path)
+        {
+            T asset = _contentManager.Load<T>(path);
+
+
+            return asset;
         }
 
         public void Dispose()

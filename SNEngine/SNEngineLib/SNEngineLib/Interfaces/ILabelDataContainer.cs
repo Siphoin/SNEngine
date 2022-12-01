@@ -11,8 +11,6 @@ namespace SNEngineLib.Interfaces
 
         public IImage Background { get; }
 
-        void SetContentManager(ContentManager manager);
-
         T LoadAsset<T>(string path, bool isImage = false);
 
         void LoadBackground(string path);

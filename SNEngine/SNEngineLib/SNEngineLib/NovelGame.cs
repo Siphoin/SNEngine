@@ -1,6 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SNEngineLib.Interfaces;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace SNEngineLib
 {
@@ -35,6 +40,8 @@ namespace SNEngineLib
             base.LoadContent();
         }
 
+        
+
         protected override void Draw(GameTime gameTime)
         {
             if (!IsActive)
@@ -57,6 +64,34 @@ namespace SNEngineLib
             _novelEngine.Update(gameTime);
 
             base.Update(gameTime);
+        }
+
+        protected void AddCharacters (ICollection<ICharacter> characterCollection)
+        {
+            if (characterCollection == null)
+            {
+                throw new ArgumentNullException("collection of charactrtd as empty");
+            }
+
+            if (characterCollection.Count == 0)
+            {
+#if DEBUG
+                Debug.WriteLine("collection of characters not contains items");
+#endif
+                return;
+            }
+
+            ICharacter[] characters = characterCollection.ToArray();
+
+            if (characters.Count(x => x == null) > 0)
+            {
+                throw new Exception("collection of characters contains Null References");
+            }
+
+            foreach (var character in characters)
+            {
+                _novelEngine.AddCharacter(character);
+            }
         }
 
 

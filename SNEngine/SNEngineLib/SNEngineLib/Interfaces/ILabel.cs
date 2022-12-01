@@ -19,8 +19,6 @@ namespace SNEngineLib.Interfaces
 
         void SetSpriteBatch(SpriteBatch spriteBatch);
 
-        void SetContentManager(ContentManager contentManager);
-
 
     }
 }
