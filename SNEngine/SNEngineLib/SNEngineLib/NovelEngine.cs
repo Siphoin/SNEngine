@@ -2,8 +2,10 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SNEngineLib.Content;
+using SNEngineLib.Converters;
 using SNEngineLib.Core;
 using SNEngineLib.Graphic;
+using SNEngineLib.Graphic.GUI;
 using SNEngineLib.Graphic.GUI.Controls;
 using SNEngineLib.Interfaces;
 using System;

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SNEngineLib.Interfaces;
-using System.Diagnostics;
 
 namespace SNEngineLib
 {
@@ -38,6 +37,11 @@ namespace SNEngineLib
 
         protected override void Draw(GameTime gameTime)
         {
+            if (!IsActive)
+            {
+                return;
+            }
+
             _novelEngine.Draw(gameTime, _spriteBatch);
 
             base.Draw(gameTime);
@@ -45,6 +49,11 @@ namespace SNEngineLib
 
         protected override void Update(GameTime gameTime)
         {
+            if (!IsActive)
+            {
+                return;
+            }
+
             _novelEngine.Update(gameTime);
 
             base.Update(gameTime);

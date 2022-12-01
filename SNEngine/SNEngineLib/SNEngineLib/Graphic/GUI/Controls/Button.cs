@@ -23,6 +23,10 @@ namespace SNEngineLib.Graphic.GUI.Controls
 
         public int Height { get; set; }
 
+        public int LayerDepth { get; set; } = 0;
+
+        public int Rotation { get; set; } = 0;
+
         public Text Text { get; private set; }
 
         public Vector2 Position { get; set; } = new Vector2(0, 0);

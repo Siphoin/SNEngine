@@ -18,7 +18,7 @@ namespace DemoSNEngine.Labels
             base.Initialize();
             Container.LoadBackground("img/school_background");
 
-            Container.LoadAsset<Texture2D>("img/apple", true);
+           // Container.LoadAsset<Texture2D>("img/apple", true);
 
            
         }

@@ -18,13 +18,19 @@ namespace SNEngineLib.LabelSystem
 
         private GraphicsDeviceManager _graphics;
 
+        public int LayerDepthBackground { get; set; }
+
         public ILabelDataContainer Container => GetContainer();
 
         public string Name { get; set; }
 
-        public Label ()
+        public Label (string name = null, int layerDepthBackground = 1)
         {
             _container = new LabelDataContainer();
+
+            Name = name;
+
+            LayerDepthBackground = layerDepthBackground;
         }
 
         public void SetGraphicDevice(GraphicsDevice graphicsDevice)
@@ -86,7 +92,7 @@ namespace SNEngineLib.LabelSystem
         {
             _spriteBatch.Draw(image.GetTexture(), new Rectangle((int)image.Position.X, (int)image.Position.Y, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight),
                             new Rectangle(0, 0, image.Width, image.Height),
-                           image.Color);
+                           image.Color, image.Rotation, image.Origin, SpriteEffects.None, LayerDepthBackground);
         }
 
         private ILabelDataContainer GetContainer()

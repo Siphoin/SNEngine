@@ -9,6 +9,10 @@ namespace SNEngineLib.Interfaces
 
         public int Height { get; }
 
+        public int LayerDepth { get; set;  }
+
+        public int Rotation { get; set; }
+
         public Vector2 Origin { get; }
 
         public Vector2 Position { get; set; }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SNEngineLib.Graphic;
 using SNEngineLib.Interfaces;
@@ -53,6 +54,8 @@ namespace SNEngineLib.LabelSystem
                 Texture2D texture = _content.Load<Texture2D>(path);
 
                 _background = new Image(texture);
+
+                _background.Origin = Vector2.Zero;
             }
             catch (Exception)
             {
