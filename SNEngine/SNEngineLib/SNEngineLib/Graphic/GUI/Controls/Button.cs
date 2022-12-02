@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SNEngineLib.InputSystem;
 using SNEngineLib.Interfaces;
 using System;
 
@@ -107,7 +108,7 @@ namespace SNEngineLib.Graphic.GUI.Controls
             if (_isHovering)
             {
 
-            if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
+            if (Input.GetMouseButtonStateLeft())
             {
                 OnClick?.Invoke(this, new EventArgs());
             }

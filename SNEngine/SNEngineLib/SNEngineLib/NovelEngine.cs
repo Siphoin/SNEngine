@@ -6,6 +6,7 @@ using SNEngineLib.Core;
 using SNEngineLib.Graphic;
 using SNEngineLib.Graphic.GUI;
 using SNEngineLib.Graphic.GUI.Controls;
+using SNEngineLib.InputSystem;
 using SNEngineLib.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -39,6 +40,8 @@ namespace SNEngineLib
 
         private ContentPipeline _contentPipeline;
 
+        private Input _input;
+
         private PanelDialog _panelDialog;
 
         private static INovelEngine _instance;
@@ -60,7 +63,7 @@ namespace SNEngineLib
 
         public IPanelDialog PanelDialog => _panelDialog;
 
-        public NovelEngine (SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphicsDeviceManager, ContentManager contentManager, GameWindow gameWindow)
+        public NovelEngine (SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphicsDeviceManager, ContentManager contentManager, GameWindow gameWindow, NovelGame game)
         {
             if (_instance != null)
             {
@@ -79,6 +82,8 @@ namespace SNEngineLib
             _graphicsDevice = graphicsDevice;
             _graphics = graphicsDeviceManager;
             _contentManager = contentManager;
+
+            _input = new Input(game);
 
             Screen.Initialize(_graphics);
 
@@ -100,6 +105,8 @@ namespace SNEngineLib
             _panelDialog.Initialize();
 
             AddComponent(_panelDialog);
+
+            AddComponent(_input);
 
             _isFirstLabel = true;
         }
@@ -271,7 +278,10 @@ namespace SNEngineLib
 
             foreach (var component in _components)
             {
-                component.Draw(gameTime, spriteBatch);
+                if (component.IsDrawable)
+                {
+                    component.Draw(gameTime, spriteBatch);
+                }
             }
 
             spriteBatch.End();

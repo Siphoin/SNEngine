@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using SNEngineLib.Interfaces;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -35,7 +34,7 @@ namespace SNEngineLib
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _novelEngine = new NovelEngine(_spriteBatch, GraphicsDevice, _graphics, Content, Window);
+            _novelEngine = new NovelEngine(_spriteBatch, GraphicsDevice, _graphics, Content, Window, this);
 
             base.LoadContent();
         }

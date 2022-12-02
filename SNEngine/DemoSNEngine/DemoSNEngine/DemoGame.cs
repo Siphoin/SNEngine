@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SNEngineLib;
 using SNEngineLib.Core;
+using SNEngineLib.InputSystem;
 using System;
 using System.Diagnostics;
 
@@ -25,7 +26,6 @@ namespace DemoSNEngine
             Graphics.PreferredBackBufferWidth = 1200;
             Graphics.PreferredBackBufferHeight = 720;
             Graphics.ApplyChanges();
-
             
             base.Initialize();
 
@@ -45,9 +45,9 @@ namespace DemoSNEngine
             Engine.AddLabel(_secondLabel);
 
             Character[] characters = new Character[]
-{
+            {
                 new Character("el", Color.Aqua)
-};
+            };
 
             AddCharacters(characters);
 
@@ -57,7 +57,7 @@ namespace DemoSNEngine
         {
             base.Update(gameTime);
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (Input.GetKeyDown(Keys.Escape))
             {
                 Exit();
             }
