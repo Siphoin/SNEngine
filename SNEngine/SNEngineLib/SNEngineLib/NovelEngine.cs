@@ -197,6 +197,10 @@ namespace SNEngineLib
             _characters.Add(character.Id, character);
 
             AddComponent((Character)character);
+
+#if DEBUG
+            Debug.WriteLine($"new character (id {character.Id}) added");
+#endif
         }
 
         private void ShowPanelDialog(string name, string text)

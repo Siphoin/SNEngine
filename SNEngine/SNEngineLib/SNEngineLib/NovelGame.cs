@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SNEngineLib.Core;
 using SNEngineLib.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -65,11 +66,41 @@ namespace SNEngineLib
             base.Update(gameTime);
         }
 
+        protected void AddLabels (ICollection<ILabel> labels)
+        {
+            if (labels == null)
+            {
+                throw new ArgumentNullException("collection of labels as empty");
+            }
+
+            if (labels.Count == 0)
+            {
+#if DEBUG
+                Debug.WriteLine("collection of labels not contains items");
+#endif
+                return;
+            }
+
+            ILabel[] collection = labels.ToArray();
+
+            if (collection.Count(x => x == null) > 0)
+            {
+                throw new Exception("collection of labels contains Null References");
+            }
+
+            foreach (var item in collection)
+            {
+                _novelEngine.AddLabel(item);
+            }
+
+
+        }
+
         protected void AddCharacters (ICollection<ICharacter> characterCollection)
         {
             if (characterCollection == null)
             {
-                throw new ArgumentNullException("collection of charactrtd as empty");
+                throw new ArgumentNullException("collection of characters as empty");
             }
 
             if (characterCollection.Count == 0)

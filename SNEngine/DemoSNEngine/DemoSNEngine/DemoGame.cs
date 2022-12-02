@@ -1,21 +1,15 @@
 ﻿using DemoSNEngine.Labels;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SNEngineLib;
 using SNEngineLib.Core;
 using SNEngineLib.InputSystem;
-using System;
-using System.Diagnostics;
+using SNEngineLib.LabelSystem;
 
 namespace DemoSNEngine
 {
     public class DemoGame : NovelGame
     {
-        private FirstLabel _firstLabel;
-
-        private SecondLabel _secondLabel;
-
         public DemoGame() : base()
         {
         }
@@ -36,18 +30,19 @@ namespace DemoSNEngine
 
             base.LoadContent();
 
-            _firstLabel = new FirstLabel();
-
-            _secondLabel = new SecondLabel();
-
-            Engine.AddLabel(_firstLabel);
-
-            Engine.AddLabel(_secondLabel);
+            Label[] labels = new Label[]
+            {
+                new FirstLabel(),
+                new SecondLabel(),
+            };
 
             Character[] characters = new Character[]
             {
                 new Character("el", Color.Aqua)
             };
+
+
+            AddLabels(labels);
 
             AddCharacters(characters);
 
