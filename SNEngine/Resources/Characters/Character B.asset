@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944ee2a472744dc408f8ba48b25316a0, type: 3}
+  m_Name: Character B
+  m_EditorClassIdentifier: 
+  _guidSO: 27ef6993-cdef-4d7e-a8f0-b44895c8bea4
+  _name: Aliya
+  _description: 
+  _colorName: {r: 0.8784314, g: 0.49411765, b: 0.5925656, a: 1}
+  _emotions:
+  - _name: Default
+    _sprite: {fileID: 21300000, guid: a53c395fda55e69438e8b23d98247fff, type: 3}
+  - _name: 1
+    _sprite: {fileID: 21300000, guid: 0069816195b67214aa6120b54b756c75, type: 3}
+  - _name: 2
+    _sprite: {fileID: 21300000, guid: a9821aee38fdcd74b848fde2eb6391ed, type: 3}
+  - _name: 3
+    _sprite: {fileID: 21300000, guid: 1ba2edb65567984498a979adb9872b95, type: 3}
+  - _name: 4
+    _sprite: {fileID: 21300000, guid: e0dd9c9b177d2564ca068f3c873898fa, type: 3}
+  - _name: 6
+    _sprite: {fileID: 21300000, guid: c19ad0d888e315d4fb7ffdc3272638b8, type: 3}
+  - _name: 7
+    _sprite: {fileID: 21300000, guid: ef6e2ed577ef2e44f97a2693873c743f, type: 3}
+  - _name: 8
+    _sprite: {fileID: 21300000, guid: 6d9e89e43ee8e6e458c72bd8aac55017, type: 3}
+  - _name: 9
+    _sprite: {fileID: 21300000, guid: c5b68e7f51f211a45954bfeda67d971f, type: 3}
+  - _name: 10
+    _sprite: {fileID: 21300000, guid: b95b35376c440554da5c60759644899b, type: 3}
+  - _name: 11
+    _sprite: {fileID: 21300000, guid: d8ec5045996ff9f49877343fff523960, type: 3}

@@ -12,6 +12,8 @@ namespace SNEngine.Services
 
             var dialogWindowPrefab = Object.Instantiate(dialogWindow);
 
+            dialogWindowPrefab.name = dialogWindow.name;
+
             Object.DontDestroyOnLoad(dialogWindowPrefab);
 
             _dialogWindow = dialogWindowPrefab;

@@ -9,5 +9,7 @@ namespace SNEngine.DialogSystem
         void MarkIsEnd();
 
         string GetText();
+
+        int GetLengthText();
     }
 }

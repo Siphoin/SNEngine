@@ -6,8 +6,8 @@ namespace SNEngine
 {
     public class ScriptableObjectIdentity : ScriptableObject, Iidentity
     {
-        [SerializeField, ReadOnly] private string _guid = Guid.NewGuid().ToString();
+        [SerializeField, ReadOnly] private string _guidSO = Guid.NewGuid().ToString();
 
-        public string GUID => _guid;
+        public string GUID => _guidSO;
     }
 }

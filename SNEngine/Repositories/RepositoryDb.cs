@@ -12,6 +12,7 @@ namespace SNEngine.Repositories
 
             RepositoryBase[] repositories =
             {
+                new CharacterRepository()
             };
 
             foreach (var repository in repositories)

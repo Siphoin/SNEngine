@@ -28,9 +28,12 @@ namespace SNEngine.CharacterSystem
             new Emotion(DEFAULT_EMOTION_NAME)
         };
 
-        public string Name => _name;
+
         public string Description => _description;
         public Color ColorName => _colorName;
+
+
+        public string GetName () => _name;
 
         public Emotion GetEmotion (string name = DEFAULT_EMOTION_NAME)
         {
@@ -39,7 +42,7 @@ namespace SNEngine.CharacterSystem
 
         public string GetNameWithColor ()
         {
-            return _colorName.ToColorTag(_name);
+            return _colorName.ToColorTag(GetName());
         }
     }
 }

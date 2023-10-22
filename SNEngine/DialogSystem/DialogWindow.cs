@@ -13,6 +13,8 @@ namespace SNEngine.DialogSystem
 
         private IDialogNode _dialogNode;
 
+        private string _currentText;
+
         [SerializeField, Min(0)] private float _speedWriting = 0.3f;
 
         [Space]
@@ -21,7 +23,7 @@ namespace SNEngine.DialogSystem
 
         [SerializeField] private TextMeshProUGUI _textMessage;
 
-        private bool AllTextWrited => _textMessage.text == _dialogNode.GetText();
+        private bool AllTextWrited => _textMessage.text == _currentText;
 
         public void Hide()
         {
@@ -67,7 +69,7 @@ namespace SNEngine.DialogSystem
 
             _cancellationTokenSource?.Cancel();
 
-            _textMessage.text = _dialogNode.GetText();
+            _textMessage.text = _currentText;
         }
 
         private void End ()
@@ -106,6 +108,8 @@ namespace SNEngine.DialogSystem
             var token = _cancellationTokenSource.Token;
 
             var message = _dialogNode.GetText();
+
+            _currentText = message;
 
             var stringBuilder = new StringBuilder();
 
