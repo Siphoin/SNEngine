@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SNEngine.Services
 {
-    public class DialogueService : IService
+    public class DialogueService : IService, IResetable
     {
         private IDialogWindow _dialogWindow;
         public void Initialize()
@@ -17,6 +17,10 @@ namespace SNEngine.Services
             Object.DontDestroyOnLoad(dialogWindowPrefab);
 
             _dialogWindow = dialogWindowPrefab;
+
+            var uiService = NovelGame.GetService<UIService>();
+
+            uiService.AddUIElementToUIContainer(dialogWindowPrefab.gameObject);
 
             HideDialog();
 
@@ -34,6 +38,11 @@ namespace SNEngine.Services
         public void HideDialog ()
         {
             _dialogWindow.Hide();
+        }
+
+        public void ResetState()
+        {
+           _dialogWindow.ResetState();
         }
     }
 }

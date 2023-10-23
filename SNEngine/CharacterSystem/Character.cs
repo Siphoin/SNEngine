@@ -1,4 +1,5 @@
 ﻿using SiphoinUnityHelpers.XNodeExtensions.Extensions;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -32,6 +33,7 @@ namespace SNEngine.CharacterSystem
         public string Description => _description;
         public Color ColorName => _colorName;
 
+        public IEnumerable<Emotion> Emotions => _emotions;
 
         public string GetName () => _name;
 

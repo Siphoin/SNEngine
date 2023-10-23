@@ -19,9 +19,7 @@ namespace SNEngine.Assets.SNEngine
         {
             _dialogue.OnEndExecute -= OnEndExecute;
 
-            var serviceDialogs = NovelGame.GetService<DialogueService>();
-
-            serviceDialogs.HideDialog();
+            NovelGame.ResetStateServices();
         }
     }
 }

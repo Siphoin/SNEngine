@@ -13,6 +13,8 @@ namespace SNEngine
         [RuntimeInitializeOnLoadMethod]
         private static void Main()
         {
+            Application.runInBackground = true;
+
             _repositoryDb = new RepositoryDb();
 
             _repositoryDb.Initialize();
@@ -32,6 +34,11 @@ namespace SNEngine
         public static T GetService<T>() where T : IService
         {
             return _serviceLocator.Get<T>();
+        }
+
+        public static void ResetStateServices ()
+        {
+            _serviceLocator.ResetState();
         }
     }
 }

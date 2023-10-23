@@ -127,5 +127,20 @@ namespace SNEngine.DialogSystem
                 await UniTask.Delay(TimeSpan.FromSeconds(_speedWriting), cancellationToken: token);
             }
         }
+
+        public void ResetState()
+        {
+            _cancellationTokenSource?.Cancel();
+
+            _cancellationTokenSource = null;
+
+            _textMessage.text = string.Empty;
+
+            _textNameCharacter.text += string.Empty;
+
+            _currentText = string.Empty;
+
+            Hide();
+        }
     }
 }

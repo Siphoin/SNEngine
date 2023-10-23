@@ -3,11 +3,8 @@ using SiphoinUnityHelpers.XNodeExtensions.AsyncNodes;
 using SNEngine.CharacterSystem;
 using SNEngine.Repositories;
 using SNEngine.Services;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 namespace SNEngine.DialogSystem
 {
@@ -30,35 +27,14 @@ namespace SNEngine.DialogSystem
 
         public string GetText()
         {
+            
             var parentGraph = graph as BaseGraph;
 
             var varitables = parentGraph.Varitables;
 
             var characters = NovelGame.GetRepository<CharacterRepository>().Characters;
 
-            string text = _text;
-
-            foreach (KeyValuePair<string, VaritableNode> pair in varitables)
-            {
-                string key = "[Property=" + pair.Key + "]";
-
-                if (text.Contains(key))
-                {
-                    text = text.Replace(key, pair.Value.GetCurrentValue().ToString());
-                }
-            }
-
-            foreach(KeyValuePair<string, Character> pair in characters)
-            {
-                string key = "[Character=" + pair.Key + "]";
-
-                if (text.Contains(key))
-                {
-                    text = text.Replace(key, pair.Value.GetName());
-                }
-            }
-
-            return text;
+            return TextParser.ParseWithProperties(_text, varitables, characters);
         }
 
         public int GetLengthText ()
@@ -69,6 +45,7 @@ namespace SNEngine.DialogSystem
         public void MarkIsEnd ()
         {
             StopTask();
+
         }
 
 
