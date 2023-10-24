@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SNEngine.BackgroundSystem
 {
-    public interface IBackgroundRenderer : IResetable, IFadeable, IFlipable, IChangeableColor, ISeterData<Sprite>
+    public interface IBackgroundRenderer : IResetable, IFadeable, IFlipable, IChangeableColor, IMovableByDirection, ISeterData<Sprite>
     {
         void Clear();
     }

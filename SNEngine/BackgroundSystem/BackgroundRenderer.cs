@@ -64,6 +64,13 @@ namespace SNEngine.BackgroundSystem
 
             await _spriteRenderer.DOColor(color, time).SetEase(ease);
         }
+
+        public async UniTask Move(Direction direction, float time, Ease ease)
+        {
+            time = MathfExtensions.ClampTime(time);
+
+            await transform.DOParalax(direction, time);
+        }
         #endregion
     }
 }
