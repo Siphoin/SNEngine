@@ -1,4 +1,5 @@
-﻿using SNEngine.DialogSystem;
+﻿using SNEngine.Debugging;
+using SNEngine.DialogSystem;
 using SNEngine.Graphs;
 using System;
 using UnityEngine;
@@ -45,6 +46,8 @@ namespace SNEngine.Services
             _currentDialogue = dialogue;
 
             _currentDialogue.OnEndExecute += OnEndExecute;
+
+            NovelGameDebug.Log($"Jump To Dialogue: {_currentDialogue.Name}");
 
             _currentDialogue.Execute();
         }

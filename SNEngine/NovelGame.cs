@@ -1,3 +1,4 @@
+using SNEngine.Debugging;
 using SNEngine.Repositories;
 using SNEngine.Services;
 using UnityEngine;
@@ -38,6 +39,8 @@ namespace SNEngine
 
         public static void ResetStateServices ()
         {
+            NovelGameDebug.Log("Clear Screen");
+
             _serviceLocator.ResetState();
         }
     }
