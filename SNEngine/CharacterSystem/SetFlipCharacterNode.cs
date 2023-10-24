@@ -1,23 +1,15 @@
-﻿using SNEngine.Services;
-using UnityEngine;
+﻿using SNEngine.Animations;
+using SNEngine.Services;
 
 namespace SNEngine.CharacterSystem
 {
-    public class SetFlipCharacterNode : CharacterNode
+    public class SetFlipCharacterNode : SetFlipNode<Character>
     {
-        [Input(connectionType = ConnectionType.Override), SerializeField] private bool _flip;
-        public override void Operation(Character character)
+        protected override void SetFlip(Character target, FlipType flipType)
         {
-            bool flip = _flip;
-
-            if (GetInputPort(nameof(_flip)).Connection != null)
-            {
-                flip = GetDataFromPort<bool>(nameof(_flip));
-            }
-
             var serviceCharacters = NovelGame.GetService<CharacterService>();
 
-            serviceCharacters.SetFlipXCharacter(character, flip);
+            serviceCharacters.SetFlipCharacter(target, flipType);
         }
     }
 }

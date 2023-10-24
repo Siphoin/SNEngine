@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace SNEngine.Services
 {
@@ -20,6 +19,7 @@ namespace SNEngine.Services
                 new UIService(),
                 new BackgroundService(),
                 new DialogueService(),
+                new DialogueUIService(),
                 new CharacterService(),
             };
 

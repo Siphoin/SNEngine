@@ -7,7 +7,7 @@ namespace SNEngine.DialogSystem
     {
         public override void Execute()
         {
-            var serviceDialogs = NovelGame.GetService<DialogueService>();
+            var serviceDialogs = NovelGame.GetService<DialogueUIService>();
 
             serviceDialogs.HideDialog();
         }

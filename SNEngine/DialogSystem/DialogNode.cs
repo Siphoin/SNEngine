@@ -20,7 +20,7 @@ namespace SNEngine.DialogSystem
         {
             base.Execute();
 
-            var serviceDialogs = NovelGame.GetService<DialogueService>();
+            var serviceDialogs = NovelGame.GetService<DialogueUIService>();
 
             serviceDialogs.ShowDialog(this);
         }

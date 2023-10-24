@@ -18,7 +18,7 @@ namespace SNEngine.Editor
 
             if (characterNode.Character is null)
             {
-                EditorGUI.LabelField(position, label, "Character not seted");
+                EditorGUI.LabelField(position, "Character not seted");
             }
 
             else

@@ -6,6 +6,7 @@ using System;
 using Object = UnityEngine.Object;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using SNEngine.Animations;
 
 namespace SNEngine.Services
 {
@@ -63,7 +64,7 @@ namespace SNEngine.Services
             characterRender.Hide();
         }
 
-        public void SetFlipXCharacter (Character character, bool flipX)
+        public void SetFlipCharacter (Character character, FlipType flipType)
         {
             if (character is null)
             {
@@ -72,11 +73,11 @@ namespace SNEngine.Services
 
             var characterRender = FindByName(character.name);
 
-            characterRender.SetFlipX(flipX);
+            characterRender.SetFlip(flipType);
         }
 
         #region Animations
-        public async UniTask MoveCharacter(Character character, float x, float time)
+        public async UniTask MoveCharacter(Character character, float x, float time, Ease ease)
         {
             if (character is null)
             {
@@ -85,10 +86,10 @@ namespace SNEngine.Services
 
             var characterRender = FindByName(character.name);
 
-            await characterRender.Move(x, time);
+            await characterRender.Move(x, time, ease);
         }
 
-        public async UniTask FadeCharacter(Character character, float value, float time)
+        public async UniTask FadeCharacter(Character character, float value, float time, Ease ease)
         {
             if (character is null)
             {
@@ -97,10 +98,10 @@ namespace SNEngine.Services
 
             var characterRender = FindByName(character.name);
 
-            await characterRender.Fade(value, time);
+            await characterRender.Fade(value, time, ease);
         }
 
-        public async UniTask ScaleCharacter(Character character, Vector3 value, float time)
+        public async UniTask ScaleCharacter(Character character, Vector3 value, float time, Ease ease)
         {
             if (character is null)
             {
@@ -109,10 +110,10 @@ namespace SNEngine.Services
 
             var characterRender = FindByName(character.name);
 
-            await characterRender.Scale(value, time);
+            await characterRender.Scale(value, time, ease);
         }
 
-        public async UniTask RotateCharacter(Character character, Vector3 value, float time, RotateMode rotateMode = RotateMode.Fast)
+        public async UniTask RotateCharacter(Character character, Vector3 value, float time, Ease ease, RotateMode rotateMode = RotateMode.Fast)
         {
             if (character is null)
             {
@@ -121,7 +122,19 @@ namespace SNEngine.Services
 
             var characterRender = FindByName(character.name);
 
-            await characterRender.Rotate(value, time, rotateMode);
+            await characterRender.Rotate(value, time, ease, rotateMode);
+        }
+
+        public async UniTask SetColorCharacter(Character character, Color value, float time, Ease ease)
+        {
+            if (character is null)
+            {
+                throw new NullReferenceException("character argument is null. Check your node Graph");
+            }
+
+            var characterRender = FindByName(character.name);
+
+            await characterRender.ChangeColor(value, time, ease);
         }
         #endregion
 

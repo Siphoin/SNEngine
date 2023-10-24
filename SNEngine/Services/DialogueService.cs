@@ -1,48 +1,61 @@
 ﻿using SNEngine.DialogSystem;
+using SNEngine.Graphs;
+using System;
 using UnityEngine;
 
 namespace SNEngine.Services
 {
-    public class DialogueService : IService, IResetable
+    internal class DialogueService : IService
     {
-        private IDialogWindow _dialogWindow;
+        private IDialogue _currentDialogue;
+
+        private IDialogue _startDialogue;
+
         public void Initialize()
         {
-            var dialogWindow = Resources.Load<DialogWindow>("UI/dialogue");
+            _startDialogue = Resources.Load<DialogueGraph>($"Dialogues/{nameof(_startDialogue)}");
 
-            var dialogWindowPrefab = Object.Instantiate(dialogWindow);
+            // TODO: jumping to start dialogue with main menu
 
-            dialogWindowPrefab.name = dialogWindow.name;
-
-            Object.DontDestroyOnLoad(dialogWindowPrefab);
-
-            _dialogWindow = dialogWindowPrefab;
-
-            var uiService = NovelGame.GetService<UIService>();
-
-            uiService.AddUIElementToUIContainer(dialogWindowPrefab.gameObject);
-
-            HideDialog();
-
+            JumpToStartDialogue();
+            
         }
 
-        public void ShowDialog (IDialogNode dialogNode)
+        public void JumpToStartDialogue()
         {
-            _dialogWindow.SetData(dialogNode);
-
-            _dialogWindow.Show();
-
-            _dialogWindow.StartOutputDialog();
+            JumpToDialogue(_startDialogue);
         }
 
-        public void HideDialog ()
+        public void JumpToDialogue(IDialogue dialogue)
         {
-            _dialogWindow.Hide();
+            if (dialogue is null)
+            {
+                throw new ArgumentNullException("dialogue argument is null");
+            }
+
+            if (_currentDialogue != null)
+            {
+                _currentDialogue.OnEndExecute -= OnEndExecute;
+
+                _currentDialogue.Stop();
+            }
+
+            NovelGame.ResetStateServices();
+
+            _currentDialogue = dialogue;
+
+            _currentDialogue.OnEndExecute += OnEndExecute;
+
+            _currentDialogue.Execute();
         }
 
-        public void ResetState()
+        private void OnEndExecute()
         {
-           _dialogWindow.ResetState();
+            _currentDialogue.OnEndExecute -= OnEndExecute;
+
+            NovelGame.ResetStateServices();
+
+            // TODO Return to main menu
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+using System;
 namespace SNEngine.CharacterSystem
 {
     [CreateAssetMenu]
@@ -40,6 +40,19 @@ namespace SNEngine.CharacterSystem
         public Emotion GetEmotion (string name = DEFAULT_EMOTION_NAME)
         {
             return _emotions.SingleOrDefault(x  => x.Name == name);
+        }
+
+        public Emotion GetEmotion(int index = 0)
+        {
+            try
+            {
+                return _emotions[index];
+            }
+            catch
+            {
+
+                throw new NullReferenceException($"emotion with index {index} not found");
+            }
         }
 
         public string GetNameWithColor ()

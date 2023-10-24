@@ -1,10 +1,16 @@
-﻿using SNEngine.BackgroundSystem;
+﻿using Cysharp.Threading.Tasks;
+using DG.Tweening;
+using SNEngine.Animations;
+using SNEngine.BackgroundSystem;
+using SNEngine.Extensions;
+using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace SNEngine.Services
 {
     
-    public class BackgroundService : IService, IResetable
+    public class BackgroundService : IService, IResetable, IFadeable, IFlipable, IChangeableColor
     {
         private IBackgroundRenderer _background;
 
@@ -47,5 +53,26 @@ namespace SNEngine.Services
         {
             _background.Clear();
         }
+
+        public void SetFlip(FlipType flipType)
+        {
+            _background.SetFlip(flipType);
+        }
+
+        #region Animations
+        public async UniTask Fade(float value, float time, Ease ease)
+        {
+            time = MathfExtensions.ClampTime(time);
+
+            await _background.Fade(value, time, ease);
+        }
+
+        public async UniTask ChangeColor(Color color, float time, Ease ease)
+        {
+            time = MathfExtensions.ClampTime(time);
+
+            await _background.ChangeColor(color, time, ease);
+        }
+        #endregion
     }
 }

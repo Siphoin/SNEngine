@@ -2,6 +2,7 @@
 using DG.Tweening;
 using SNEngine.Services;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 namespace SNEngine.CharacterSystem.Animations
 {
@@ -10,7 +11,8 @@ namespace SNEngine.CharacterSystem.Animations
         [Input(connectionType = ConnectionType.Override), SerializeField] private Vector3 _angle;
 
         [SerializeField] private RotateMode _rotateMode;
-        public override void Operation(Character character, float duration)
+
+        protected override void Play(Character target, float duration, Ease ease)
         {
             Vector3 angle = _angle;
 
@@ -21,14 +23,14 @@ namespace SNEngine.CharacterSystem.Animations
                 _angle = GetDataFromPort<Vector3>(nameof(_angle));
             }
 
-            Rotate(angle, duration, character).Forget();
+            Rotate(angle, duration, target, ease).Forget();
         }
 
-        private async UniTask Rotate(Vector3 angle, float duration, Character character)
+        private async UniTask Rotate(Vector3 angle, float duration, Character character, Ease ease)
         {
             var serviceCharacters = NovelGame.GetService<CharacterService>();
 
-            await serviceCharacters.RotateCharacter(character, angle, duration, _rotateMode);
+            await serviceCharacters.RotateCharacter(character, angle, duration, ease, _rotateMode);
 
             StopTask();
         }

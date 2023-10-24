@@ -2,6 +2,8 @@
 using System;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using SNEngine.Extensions;
+using SNEngine.Animations;
 
 namespace SNEngine.CharacterSystem
 {
@@ -50,9 +52,9 @@ namespace SNEngine.CharacterSystem
             Show();
         }
 
-        public void SetFlipX (bool flipX)
+        public void SetFlip(FlipType flipType)
         {
-            _spriteRenderer.flipX = flipX;
+            _spriteRenderer.Flip(flipType);
         }
 
         private void CalculatePositionForScreen ()
@@ -67,47 +69,47 @@ namespace SNEngine.CharacterSystem
         }
 
         #region Animations
-
-        private float ClampTime (float time)
+        public async UniTask Move(float x, float time, Ease ease)
         {
-            return Mathf.Clamp(time, 0, float.MaxValue);
-        }
-        public async UniTask Move(float x, float time)
-        {
-            time = ClampTime(time);
+            time = MathfExtensions.ClampTime(time);
 
-            await transform.DOMoveX(x, time);
+            await transform.DOMoveX(x, time).SetEase(ease);
         }
 
-        public async UniTask Fade(float value,  float time)
+        public async UniTask Fade(float value,  float time, Ease ease)
         {
-            time = ClampTime(time);
+            time = MathfExtensions.ClampTime(time);
 
             value = Mathf.Clamp01(value);
 
-            await _spriteRenderer.DOFade(value, time);
+            await _spriteRenderer.DOFade(value, time).SetEase(ease);
         }
 
-        public async UniTask Scale (Vector3 scale, float time)
+        public async UniTask Scale(Vector3 scale, float time, Ease ease)
         {
-            time = ClampTime(time);
+            time = MathfExtensions.ClampTime(time);
 
-            await transform.DOScale(scale, time);
+            await transform.DOScale(scale, time).SetEase(ease);
         }
 
-        public async UniTask Rotate(Vector3 angle, float time, RotateMode rotateMode)
+        public async UniTask Rotate(Vector3 angle, float time, Ease ease, RotateMode rotateMode)
         {
-            time = ClampTime(time);
+            time = MathfExtensions.ClampTime(time);
 
-            await transform.DORotate(angle, time, rotateMode);
+            await transform.DOLocalRotate(angle, time, rotateMode).SetEase(ease);
+        }
+
+        public async UniTask ChangeColor(Color color, float time, Ease ease)
+        {
+            time = MathfExtensions.ClampTime(time);
+
+            await _spriteRenderer.DOColor(color, time).SetEase(ease);
         }
 
         #endregion
 
         public void ResetState()
         {
-            _spriteRenderer.DOFade(1, 0);
-
             Vector3 position = transform.position;
 
             position.x = 0;
@@ -120,7 +122,11 @@ namespace SNEngine.CharacterSystem
 
             transform.rotation = Quaternion.identity;
 
-            _spriteRenderer.sprite = _character.GetEmotion().Sprite;
+            _spriteRenderer.sprite = _character.GetEmotion(0).Sprite;
+
+            _spriteRenderer.color = Color.white;
+
+            SetFlip(FlipType.None);
 
             Hide();
         }
