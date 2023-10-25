@@ -2,6 +2,7 @@
 using UnityEngine;
 using System;
 using Object = UnityEngine.Object;
+using UnityEngine.EventSystems;
 
 namespace SNEngine.Services
 {
@@ -10,18 +11,37 @@ namespace SNEngine.Services
         private IUIContainer _container;
         public void Initialize()
         {
-            var container = Resources.Load<UIContainer>("UI/UIContainer");
+            LoadEventSystem();
 
-            var prefab = Object.Instantiate(container);
+            LoadContainer();
+        }
 
-            prefab.name = container.name;
+        private T LoadUIElement<T> () where T : Component
+        {
+            Type type = typeof(T);
+
+            var element = Resources.Load<T>($"UI/{type.Name}");
+
+            var prefab = Object.Instantiate(element);
+
+            prefab.name = element.name;
 
             Object.DontDestroyOnLoad(prefab);
 
-            _container = prefab;
+            return prefab;
         }
 
-        public void AddUIElementToUIContainer (GameObject gameObject)
+        private void LoadEventSystem()
+        {
+            LoadUIElement<EventSystem>();
+        }
+
+        private void LoadContainer()
+        {
+            _container = LoadUIElement<UIContainer>();
+        }
+
+        public void AddElementToUIContainer (GameObject gameObject)
         {
             if (gameObject.TryGetComponent(out  RectTransform rectTransform))
             {

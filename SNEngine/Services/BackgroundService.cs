@@ -2,6 +2,7 @@
 using DG.Tweening;
 using SNEngine.Animations;
 using SNEngine.BackgroundSystem;
+using SNEngine.Debugging;
 using SNEngine.Extensions;
 using System;
 using UnityEngine;
@@ -46,6 +47,11 @@ namespace SNEngine.Services
 
         public void Set (Sprite sprite)
         {
+            if (sprite is null)
+            {
+                NovelGameDebug.LogError($"Sprite for set background not seted. Check your graph");
+            }
+
             _background.SetData(sprite);
         }
 

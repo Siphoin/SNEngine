@@ -7,6 +7,7 @@ using Object = UnityEngine.Object;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using SNEngine.Animations;
+using SNEngine.Debugging;
 
 namespace SNEngine.Services
 {
@@ -42,9 +43,9 @@ namespace SNEngine.Services
 
         public void ShowCharacter (Character character, string emotionName = "Default")
         {
-            if (character is null)
+            if (LogErrorNullReferenceCharacter(character))
             {
-                throw new NullReferenceException("character argument is null/ Check your node Graph");
+                return;
             }
 
             var characterRender = FindByName(character.name);
@@ -52,11 +53,24 @@ namespace SNEngine.Services
             characterRender.ShowWithEmotion(emotionName);
         }
 
-        public void HideCharacter(Character character)
+        private  bool LogErrorNullReferenceCharacter(Character character)
         {
             if (character is null)
             {
-                throw new NullReferenceException("character argument is null. Check your node Graph");
+                NovelGameDebug.LogError("character argument is null. Check your node Graph");
+
+                return true;
+            }
+
+            return false;
+           
+        }
+
+        public void HideCharacter(Character character)
+        {
+            if (LogErrorNullReferenceCharacter(character))
+            {
+                return;
             }
 
             var characterRender = FindByName(character.name);
@@ -66,9 +80,9 @@ namespace SNEngine.Services
 
         public void SetFlipCharacter (Character character, FlipType flipType)
         {
-            if (character is null)
+            if (LogErrorNullReferenceCharacter(character))
             {
-                throw new NullReferenceException("character argument is null. Check your node Graph");
+                return;
             }
 
             var characterRender = FindByName(character.name);
@@ -145,7 +159,9 @@ namespace SNEngine.Services
                 return _characters[name];
             }
 
-            throw new NullReferenceException($"character with name {name} not founds on db characters");
+            NovelGameDebug.LogError($"character with name {name} not founds on db characters");
+
+            return null;
         }
 
         public void ResetState()

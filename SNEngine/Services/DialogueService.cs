@@ -31,7 +31,7 @@ namespace SNEngine.Services
         {
             if (dialogue is null)
             {
-                throw new ArgumentNullException("dialogue argument is null");
+                NovelGameDebug.LogError("dialogue argument is null. Check your graph");
             }
 
             if (_currentDialogue != null)

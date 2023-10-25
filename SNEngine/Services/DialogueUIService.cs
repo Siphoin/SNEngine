@@ -22,9 +22,7 @@ namespace SNEngine.Services
 
             var uiService = NovelGame.GetService<UIService>();
 
-            uiService.AddUIElementToUIContainer(dialogWindowPrefab.gameObject);
-
-
+            uiService.AddElementToUIContainer(dialogWindowPrefab.gameObject);
 
             ResetState();
 

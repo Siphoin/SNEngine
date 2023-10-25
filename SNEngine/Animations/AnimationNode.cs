@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using SiphoinUnityHelpers.XNodeExtensions.AsyncNodes;
+using SNEngine.Debugging;
 using UnityEngine;
 
 namespace SNEngine.Animations
@@ -61,6 +62,13 @@ namespace SNEngine.Animations
             if (input.Connection != null)
             {
                 target = GetDataFromPort<T>(nameof(_target));
+            }
+
+            if (target is null)
+            {
+                NovelGameDebug.LogError($"{nameof(_target)} is null for node (GUID: <b>{GUID}</b>)");
+
+                return;
             }
 
             Play(target, duration, ease);

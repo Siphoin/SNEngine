@@ -9,7 +9,7 @@ namespace SNEngine.Debugging
         private static readonly Dictionary<DebugType, string> _colorsDebug = new Dictionary<DebugType, string>()
         {
             {DebugType.Message, "#29baa9" },
-            {DebugType.Error, "#ba2929" },
+            {DebugType.Error, "#e88e8e" },
             {DebugType.Warning, "#bab529" }
         };
 

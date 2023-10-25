@@ -21,6 +21,7 @@ namespace SNEngine.Services
                 new DialogueService(),
                 new DialogueUIService(),
                 new CharacterService(),
+                new SelectVariantsService(),
             };
 
             foreach (var service in services)
