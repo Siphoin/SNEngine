@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using SiphoinUnityHelpers.XNodeExtensions;
 using SiphoinUnityHelpers.XNodeExtensions.AsyncNodes;
 using SiphoinUnityHelpers.XNodeExtensions.Attributes;
 using SNEngine.Services;
@@ -43,6 +44,7 @@ namespace SNEngine.SelectVariantsSystem
 
             for (int i = 0; i < variants.Length; i++)
             {
+
                 string fieldName = $"{nameof(_variants)} {i}";
 
                 var port = GetInputPort(fieldName);
@@ -51,6 +53,8 @@ namespace SNEngine.SelectVariantsSystem
                 {
                     variants[i] = GetInputValue<string>(fieldName);
                 }
+
+                variants[i] = TextParser.ParseWithProperties(variants[i], graph as BaseGraph);
             }
 
             var serviceShowVariants = NovelGame.GetService<SelectVariantsService>();

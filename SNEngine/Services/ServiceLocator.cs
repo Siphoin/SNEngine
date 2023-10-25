@@ -16,6 +16,7 @@ namespace SNEngine.Services
         {
             IService[] services =
             {
+                new VaritablesContainerService(),
                 new UIService(),
                 new BackgroundService(),
                 new DialogueService(),

@@ -27,14 +27,7 @@ namespace SNEngine.DialogSystem
 
         public string GetText()
         {
-            
-            var parentGraph = graph as BaseGraph;
-
-            var varitables = parentGraph.Varitables;
-
-            var characters = NovelGame.GetRepository<CharacterRepository>().Characters;
-
-            return TextParser.ParseWithProperties(_text, varitables, characters);
+            return TextParser.ParseWithProperties(_text, graph as BaseGraph);
         }
 
         public int GetLengthText ()

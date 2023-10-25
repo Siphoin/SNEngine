@@ -1,5 +1,38 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4998429052310315860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd29eda5b21ce6b49b72d2c4c92e2e35, type: 3}
+  m_Name: <color=#F39D9D>c (Int)</color>
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 8, y: 56}
+  ports:
+    keys:
+    - _value
+    values:
+    - _fieldName: _value
+      _node: {fileID: -4998429052310315860}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  _nodeGuid: 5a2a3702b4e740d
+  _name: c
+  _color:
+    serializedVersion: 2
+    rgba: 4288519667
+  _value: 57
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12,4 +45,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef29323b0c65b644a2aa8614d1cd3c9, type: 3}
   m_Name: VaritableContainerGraph
   m_EditorClassIdentifier: 
-  nodes: []
+  nodes:
+  - {fileID: -4998429052310315860}

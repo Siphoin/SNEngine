@@ -1,42 +1,83 @@
 ﻿using SiphoinUnityHelpers.XNodeExtensions;
 using SNEngine.CharacterSystem;
+using SNEngine.Debugging;
+using SNEngine.Repositories;
+using SNEngine.Services;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace SNEngine
 {
     public static class TextParser
     {
         
-        public static string ParseWithProperties (string text, params object[] dictionaries) 
+        public static string ParseWithProperties (string text, BaseGraph graph) 
         {
+            var varitables = graph.Varitables;
 
-            foreach (IDictionary dictionary in dictionaries)
+            var characters = NovelGame.GetRepository<CharacterRepository>().Characters;
+
+            var globalVaritables = NovelGame.GetService<VaritablesContainerService>().GlobalVaritables;
+
+            var dictonaries = new Dictionary<string, object>
+             {
+            { "[Property=", varitables },
+            { "[GlobalProperty=", globalVaritables },
+            {"[Character=", characters }
+
+             };
+
+            foreach (var pair in dictonaries)
             {
+                IDictionary dictionary = pair.Value as IDictionary;
 
-                foreach (DictionaryEntry pair in dictionary)
+                foreach (DictionaryEntry item in dictionary)
                 {
-                    string keyProperty = $"[Property={pair.Key}]";
-
-                    string characterProperty = $"[Character={pair.Key}]";
-
-                    if (text.Contains(keyProperty))
+                    if (item.Value is VaritableNode)
                     {
-                        VaritableNode varitableNode = pair.Value as VaritableNode;
+                        VaritableNode node = item.Value as VaritableNode;
 
-                        text = text.Replace(keyProperty, varitableNode.GetCurrentValue().ToString());
+                        string attribute = $"{pair.Key}{node.Name}]";
+          
+                        if (text.Contains(pair.Key, StringComparison.Ordinal) && attribute.Contains(node.Name, StringComparison.Ordinal))
+                        {
+                            NovelGameDebug.Log(pair.Key);
+
+                            ReplacePart(ref text, attribute, node.GetCurrentValue().ToString());
+                        }
+
+                        
                     }
 
-                    else if (text.Contains(characterProperty))
+                    else if (item.Value is Character)
                     {
-                        Character character = pair.Value as Character;
+                        Character character = item.Value as Character;
 
-                        text = text.Replace(characterProperty,  character.GetName());
+                        string attribute = $"{pair.Key}{character.name}]";
+
+                        if (text.Contains(pair.Key, StringComparison.Ordinal) && attribute.Contains(character.name, StringComparison.Ordinal))
+                        {
+                            NovelGameDebug.Log(pair.Key);
+
+                            ReplacePart(ref text, attribute, character.GetName());
+                        }
+
+
                     }
                 }
-            }
+                }
+            
 
             return text;
             
+        }
+
+
+
+        private static void ReplacePart (ref string text, string attribute, string newValue)
+        {
+            text = text.Replace(attribute, newValue);
         }
     }
 }
