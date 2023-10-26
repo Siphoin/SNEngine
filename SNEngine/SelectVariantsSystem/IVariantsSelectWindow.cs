@@ -2,7 +2,7 @@
 
 namespace SNEngine.SelectVariantsSystem
 {
-    public interface IVariantsSelectWindow : IShowable, IHidden, IShowerVariants, ISeterData<IEnumerable<string>>, ISelectableVariant
+    public interface IVariantsSelectWindow : IShowable, IHidden, IShowerVariants, ISeterData<IEnumerable<string>, AnimationButtonsType>, ISelectableVariant
     {
     }
 }

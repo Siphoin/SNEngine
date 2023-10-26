@@ -13,6 +13,8 @@ namespace SNEngine.Services
 
         public event Action<int> OnSelect;
 
+        private bool _flagShowInvolvedCharacters = true;
+
         public void Initialize()
         {
             var window = Resources.Load<VariantsSelectWindow>("UI/WindowSelecVariants");
@@ -32,11 +34,13 @@ namespace SNEngine.Services
             _window.Hide();
         }
 
-        public void ShowVariants (IEnumerable<string> variants)
+        public void ShowVariants (IEnumerable<string> variants, bool hideCharacters = true, bool hideDialogWindow = true, bool returnCharactersVisible = true, AnimationButtonsType animationType = AnimationButtonsType.None)
         {
             _window.OnSelect += OnSelectVariant;
 
-            _window.ShowVariants(variants);
+            _window.ShowVariants(variants, hideCharacters, hideDialogWindow, returnCharactersVisible, animationType);
+
+            _flagShowInvolvedCharacters = returnCharactersVisible;
         }
 
         private void OnSelectVariant(int index)
@@ -44,6 +48,13 @@ namespace SNEngine.Services
             _window.OnSelect -= OnSelectVariant;
 
             OnSelect?.Invoke(index);
+
+            if (_flagShowInvolvedCharacters)
+            {
+                var charactersService = NovelGame.GetService<CharacterService>();
+
+                charactersService.ShowInvolvedCharacters();
+            }
         }
     }
 }

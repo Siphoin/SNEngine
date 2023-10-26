@@ -171,7 +171,6 @@ namespace SNEngine.Polling
                 if (!mono.gameObject.activeInHierarchy)
                 {
                     element = mono;
-                    element.gameObject.SetActive(true);
                     return true;
                 }
             }

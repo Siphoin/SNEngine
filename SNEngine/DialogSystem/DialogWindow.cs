@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using TMPro;
 using System.Text;
+using SNEngine.Debugging;
 
 namespace SNEngine.DialogSystem
 {
@@ -23,7 +24,18 @@ namespace SNEngine.DialogSystem
 
         [SerializeField] private TextMeshProUGUI _textMessage;
 
+        private TMP_FontAsset _defaultFontTextNameCharacter;
+
+        private TMP_FontAsset _defaultFontTextDialog;
+
         private bool AllTextWrited => _textMessage.text == _currentText;
+
+        private void Awake()
+        {
+            _defaultFontTextDialog = _textMessage.font;
+
+            _defaultFontTextNameCharacter = _textNameCharacter.font;
+        }
 
         public void Hide()
         {
@@ -70,6 +82,7 @@ namespace SNEngine.DialogSystem
             _cancellationTokenSource?.Cancel();
 
             _textMessage.text = _currentText;
+
         }
 
         private void End ()
@@ -85,12 +98,7 @@ namespace SNEngine.DialogSystem
         {
             if ( _cancellationTokenSource != null)
             {
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    EndWrite();
-                }
-
-                else if (Input.GetMouseButtonDown(0))
+                if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
                 {
                     EndWrite();
                 }
@@ -128,6 +136,37 @@ namespace SNEngine.DialogSystem
             }
         }
 
+        public void SetFontDialog(TMP_FontAsset font)
+        {
+            if (font is null)
+            {
+                NovelGameDebug.LogError($"font for text dialog is null");
+
+                return;
+            }
+
+            _textMessage.font = font;
+        }
+
+        public void SetFontTextTalkingCharacter(TMP_FontAsset font)
+        {
+            if (font is null)
+            {
+                NovelGameDebug.LogError($"font for text talking character is null");
+
+                return;
+            }
+
+            _textNameCharacter.font = font;
+        }
+
+        public void ResetFont()
+        {
+            _textMessage.font = _defaultFontTextDialog;
+
+            _textNameCharacter.font = _defaultFontTextNameCharacter;
+        }
+
         public void ResetState()
         {
             _cancellationTokenSource?.Cancel();
@@ -139,6 +178,8 @@ namespace SNEngine.DialogSystem
             _textNameCharacter.text += string.Empty;
 
             _currentText = string.Empty;
+
+            ResetFont();
 
             Hide();
         }

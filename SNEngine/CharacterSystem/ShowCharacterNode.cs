@@ -12,6 +12,8 @@ namespace SNEngine.CharacterSystem
             var serviceCharacters = NovelGame.GetService<CharacterService>();
 
             serviceCharacters.ShowCharacter(character, _emotion);
+
+           
         }
     }
 }

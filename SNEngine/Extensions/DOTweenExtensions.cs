@@ -3,6 +3,9 @@ using DG.Tweening.Plugins.Options;
 using DG.Tweening;
 using UnityEngine;
 using SNEngine.Animations;
+using Cysharp.Threading.Tasks;
+using System;
+using SNEngine.Debugging;
 
 namespace SNEngine.Extensions
 {
@@ -12,7 +15,7 @@ namespace SNEngine.Extensions
         {
             Vector3 endValue = target.position;
 
-            target.position = GetScreenEdge(target, direction);
+            target.position = target.GetScreenEdge(direction);
 
 
 
@@ -24,31 +27,15 @@ namespace SNEngine.Extensions
             return tweenerCore;
         }
 
-        private static Vector3 GetScreenEdge (Transform transform, Direction direction)
+        public static TweenerCore<Color, Color, ColorOptions> DODissolve(this SpriteRenderer spriteRenderer, float duration)
         {
-            Vector3 position = Vector3.zero;
+            Color colorStart = spriteRenderer.color;
 
-            float orthographicSize = Camera.main.orthographicSize;
+            colorStart.a = 0.5f;
 
-            float cameraAspect = Camera.main.aspect;
+            spriteRenderer.color = colorStart;
 
-            switch (direction)
-            {
-                case Direction.Up:
-                    position = new Vector3(transform.position.x, orthographicSize, transform.position.z);
-                    break;
-                case Direction.Down:
-                    position = new Vector3(transform.position.x, -orthographicSize, transform.position.z);
-                    break;
-                case Direction.Left:
-                    position = new Vector3(-cameraAspect * orthographicSize, transform.position.y, transform.position.z);
-                    break;
-                case Direction.Right:
-                    position = new Vector3(cameraAspect * orthographicSize, transform.position.y, transform.position.z);
-                    break;
-            }
-
-            return position;
+           return spriteRenderer.DOFade(1, duration);
         }
     }
 }

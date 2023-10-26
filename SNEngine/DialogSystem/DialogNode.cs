@@ -1,9 +1,7 @@
 ﻿using SiphoinUnityHelpers.XNodeExtensions;
 using SiphoinUnityHelpers.XNodeExtensions.AsyncNodes;
 using SNEngine.CharacterSystem;
-using SNEngine.Repositories;
 using SNEngine.Services;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SNEngine.DialogSystem

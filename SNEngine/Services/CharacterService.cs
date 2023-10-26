@@ -14,6 +14,8 @@ namespace SNEngine.Services
     public class CharacterService : IService, IResetable
     {
         private Dictionary<string, ICharacterRenderer> _characters;
+
+        private List<ICharacterRenderer> _charactersInvolved;
         
         public void Initialize()
         {
@@ -39,6 +41,8 @@ namespace SNEngine.Services
 
                 _characters.Add(character.Value.name, newCharacter);
             }
+
+            _charactersInvolved = new List<ICharacterRenderer>();
         }
 
         public void ShowCharacter (Character character, string emotionName = "Default")
@@ -78,6 +82,38 @@ namespace SNEngine.Services
             characterRender.Hide();
         }
 
+        public void HideInvolvedCharacters()
+        {
+            foreach (var character in _charactersInvolved)
+            {
+                character.Hide();
+            }
+        }
+
+        public void ShowInvolvedCharacters()
+        {
+            foreach (var character in _charactersInvolved)
+            {
+                character.Show();
+            }
+        }
+
+        public void HideAllCharacters()
+        {
+            foreach (var character in _characters)
+            {
+                character.Value.Hide();
+            }
+        }
+
+        public void ShowAllCharacters()
+        {
+            foreach (var character in _characters)
+            {
+                character.Value.Show();
+            }
+        }
+
         public void SetFlipCharacter (Character character, FlipType flipType)
         {
             if (LogErrorNullReferenceCharacter(character))
@@ -90,12 +126,53 @@ namespace SNEngine.Services
             characterRender.SetFlip(flipType);
         }
 
+        
+
+        private ICharacterRenderer FindByName (string name)
+        {
+            ICharacterRenderer character = null;
+
+            if (_characters.ContainsKey(name))
+            {
+                character = _characters[name];
+            }
+
+            else
+            {
+                NovelGameDebug.LogError($"character with name {name} not founds on db characters");
+
+                return null;
+            }
+
+            AddToInvolvedCharacters(character);
+
+            return character;
+        }
+
+        private void AddToInvolvedCharacters(ICharacterRenderer character)
+        {
+            if (!_charactersInvolved.Contains(character))
+            {
+                _charactersInvolved.Add(character);
+            }
+        }
+
+        public void ResetState()
+        {
+            foreach (var character in _characters.Values)
+            {
+                character.ResetState();
+            }
+
+            _charactersInvolved.Clear();
+        }
+
         #region Animations
         public async UniTask MoveCharacter(Character character, float x, float time, Ease ease)
         {
-            if (character is null)
+            if (LogErrorNullReferenceCharacter(character))
             {
-                throw new NullReferenceException("character argument is null. Check your node Graph");
+                return;
             }
 
             var characterRender = FindByName(character.name);
@@ -105,9 +182,9 @@ namespace SNEngine.Services
 
         public async UniTask FadeCharacter(Character character, float value, float time, Ease ease)
         {
-            if (character is null)
+            if (LogErrorNullReferenceCharacter(character))
             {
-                throw new NullReferenceException("character argument is null. Check your node Graph");
+                return;
             }
 
             var characterRender = FindByName(character.name);
@@ -117,9 +194,9 @@ namespace SNEngine.Services
 
         public async UniTask ScaleCharacter(Character character, Vector3 value, float time, Ease ease)
         {
-            if (character is null)
+            if (LogErrorNullReferenceCharacter(character))
             {
-                throw new NullReferenceException("character argument is null. Check your node Graph");
+                return;
             }
 
             var characterRender = FindByName(character.name);
@@ -129,9 +206,9 @@ namespace SNEngine.Services
 
         public async UniTask RotateCharacter(Character character, Vector3 value, float time, Ease ease, RotateMode rotateMode = RotateMode.Fast)
         {
-            if (character is null)
+            if (LogErrorNullReferenceCharacter(character))
             {
-                throw new NullReferenceException("character argument is null. Check your node Graph");
+                return;
             }
 
             var characterRender = FindByName(character.name);
@@ -141,35 +218,27 @@ namespace SNEngine.Services
 
         public async UniTask SetColorCharacter(Character character, Color value, float time, Ease ease)
         {
-            if (character is null)
+            if (LogErrorNullReferenceCharacter(character))
             {
-                throw new NullReferenceException("character argument is null. Check your node Graph");
+                return;
             }
 
             var characterRender = FindByName(character.name);
 
             await characterRender.ChangeColor(value, time, ease);
         }
+
+        public async UniTask DissolveCharacter(Character character, float time, Ease ease)
+        {
+            if (LogErrorNullReferenceCharacter(character))
+            {
+                return;
+            }
+
+            var characterRender = FindByName(character.name);
+
+            await characterRender.Dissolve(time, ease);
+        }
         #endregion
-
-        private ICharacterRenderer FindByName (string name)
-        {
-            if (_characters.ContainsKey(name))
-            {
-                return _characters[name];
-            }
-
-            NovelGameDebug.LogError($"character with name {name} not founds on db characters");
-
-            return null;
-        }
-
-        public void ResetState()
-        {
-            foreach (var character in _characters.Values)
-            {
-                character.ResetState();
-            }
-        }
     }
 }

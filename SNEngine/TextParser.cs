@@ -42,8 +42,6 @@ namespace SNEngine
           
                         if (text.Contains(pair.Key, StringComparison.Ordinal) && attribute.Contains(node.Name, StringComparison.Ordinal))
                         {
-                            NovelGameDebug.Log(pair.Key);
-
                             ReplacePart(ref text, attribute, node.GetCurrentValue().ToString());
                         }
 
@@ -58,8 +56,6 @@ namespace SNEngine
 
                         if (text.Contains(pair.Key, StringComparison.Ordinal) && attribute.Contains(character.name, StringComparison.Ordinal))
                         {
-                            NovelGameDebug.Log(pair.Key);
-
                             ReplacePart(ref text, attribute, character.GetName());
                         }
 

@@ -106,6 +106,13 @@ namespace SNEngine.CharacterSystem
             await _spriteRenderer.DOColor(color, time).SetEase(ease);
         }
 
+        public async UniTask Dissolve(float time, Ease ease)
+        {
+            time = MathfExtensions.ClampTime(time);
+
+            await _spriteRenderer.DODissolve(time).SetEase(ease);
+        }
+
         #endregion
 
         public void ResetState()
