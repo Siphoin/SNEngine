@@ -1,151 +1,60 @@
 ﻿using Cysharp.Threading.Tasks;
-using System.Threading;
 using UnityEngine;
 using System;
 using TMPro;
-using System.Text;
 using SNEngine.Debugging;
 
 namespace SNEngine.DialogSystem
 {
-    public class DialogWindow : MonoBehaviour, IDialogWindow
+    public class DialogWindow : PrinterText, IDialogWindow
     {
-        private CancellationTokenSource _cancellationTokenSource;
 
         private IDialogNode _dialogNode;
 
-        private string _currentText;
-
-        [SerializeField, Min(0)] private float _speedWriting = 0.3f;
-
-        [Space]
-
         [SerializeField] private TextMeshProUGUI _textNameCharacter;
-
-        [SerializeField] private TextMeshProUGUI _textMessage;
 
         private TMP_FontAsset _defaultFontTextNameCharacter;
 
-        private TMP_FontAsset _defaultFontTextDialog;
-
-        private bool AllTextWrited => _textMessage.text == _currentText;
-
-        private void Awake()
+        protected override void Awake()
         {
-            _defaultFontTextDialog = _textMessage.font;
+            base.Awake();
 
             _defaultFontTextNameCharacter = _textNameCharacter.font;
         }
 
-        public void Hide()
-        {
-            gameObject.SetActive(false);
-        }
-
-        public void Show()
-        {
-            gameObject.SetActive(true);
-        }
-
         public void SetData(IDialogNode data)
         {
-            if (_cancellationTokenSource != null)
-            {
-                throw new InvalidOperationException("dialog window not end last seted dialog");
-            }
-
             _dialogNode = data;
         }
 
-        public void StartOutputDialog ()
+        public void StartOutputDialog()
         {
             if (_dialogNode is null)
             {
-                throw new ArgumentNullException("dialog node is null");
-            }
-
-            Writing().Forget();
-
-
-        }
-
-        private void EndWrite ()
-        {
-
-            if (AllTextWrited)
-            {
-                End();
+                NovelGameDebug.LogError("dialog node is null. Check your Graph");
 
                 return;
             }
 
-            _cancellationTokenSource?.Cancel();
-
-            _textMessage.text = _currentText;
-
+            StartOutputDialog(_dialogNode.GetText());
         }
 
-        private void End ()
+        protected override void End ()
         {
+            base.End();
+
             _dialogNode.MarkIsEnd();
 
             _dialogNode = null;
 
-            _cancellationTokenSource = null;
-        }
-
-        private void Update()
-        {
-            if ( _cancellationTokenSource != null)
-            {
-                if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-                {
-                    EndWrite();
-                }
-            }
-
 
         }
 
-        private async UniTask Writing()
+        protected override async UniTask Writing(string message)
         {
-            _cancellationTokenSource = new CancellationTokenSource();
-
             _textNameCharacter.text = _dialogNode.Character.GetNameWithColor();
 
-            var token = _cancellationTokenSource.Token;
-
-            var message = _dialogNode.GetText();
-
-            _currentText = message;
-
-            var stringBuilder = new StringBuilder();
-
-            for (int i = 0; i < message.Length; i++)
-            {
-                if (token.IsCancellationRequested)
-                {
-                    break;
-                }
-
-                stringBuilder.Append(message[i]);
-
-                _textMessage.text = stringBuilder.ToString();
-
-                await UniTask.Delay(TimeSpan.FromSeconds(_speedWriting), cancellationToken: token);
-            }
-        }
-
-        public void SetFontDialog(TMP_FontAsset font)
-        {
-            if (font is null)
-            {
-                NovelGameDebug.LogError($"font for text dialog is null");
-
-                return;
-            }
-
-            _textMessage.font = font;
+            await base.Writing(message);
         }
 
         public void SetFontTextTalkingCharacter(TMP_FontAsset font)
@@ -160,28 +69,18 @@ namespace SNEngine.DialogSystem
             _textNameCharacter.font = font;
         }
 
-        public void ResetFont()
+        public override void ResetFont()
         {
-            _textMessage.font = _defaultFontTextDialog;
+            base.ResetFont();
 
             _textNameCharacter.font = _defaultFontTextNameCharacter;
         }
 
-        public void ResetState()
+        public override void ResetState()
         {
-            _cancellationTokenSource?.Cancel();
+            base.ResetState();
 
-            _cancellationTokenSource = null;
-
-            _textMessage.text = string.Empty;
-
-            _textNameCharacter.text += string.Empty;
-
-            _currentText = string.Empty;
-
-            ResetFont();
-
-            Hide();
+            _textNameCharacter.text = string.Empty;
         }
     }
 }

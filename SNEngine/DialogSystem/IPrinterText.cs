@@ -2,7 +2,7 @@
 
 namespace SNEngine.DialogSystem
 {
-    public interface IPrinterText
+    public interface IPrinterText : IResetable
     {
         void SetFontDialog(TMP_FontAsset font);
 

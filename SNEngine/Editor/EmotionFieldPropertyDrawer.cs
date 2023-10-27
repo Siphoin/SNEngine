@@ -12,13 +12,29 @@ namespace SNEngine.Editor
     {
         private int _selectedIndex;
 
+        private static Color32 _colorWarning = Color.clear;
+
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             CharacterNode characterNode = property.serializedObject.targetObject as CharacterNode;
 
             if (characterNode.Character is null)
             {
-                EditorGUI.LabelField(position, "Character not seted");
+                if (_colorWarning ==  Color.clear)
+                {
+                    _colorWarning = new Color32(250, 185, 185, 255);
+                }
+                GUIStyle style = new (GUI.skin.label);
+
+
+
+                style.normal.textColor = _colorWarning;
+
+                style.alignment = TextAnchor.MiddleCenter;
+
+                EditorGUI.LabelField(position, "Character not seted", style);
+
+                 return;
             }
 
             else

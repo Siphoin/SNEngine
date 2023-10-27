@@ -2,14 +2,8 @@
 
 namespace SNEngine.DialogSystem
 {
-    public interface IDialogNode
+    public interface IDialogNode : IPrinterNode
     {
         Character Character { get; }
-
-        void MarkIsEnd();
-
-        string GetText();
-
-        int GetLengthText();
     }
 }

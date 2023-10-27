@@ -16,11 +16,13 @@ namespace SNEngine.Services
         {
             IService[] services =
             {
+                new InputService(),
                 new VaritablesContainerService(),
                 new UIService(),
                 new BackgroundService(),
                 new DialogueService(),
                 new DialogueUIService(),
+                new DialogueOnScreenSerice(),
                 new CharacterService(),
                 new SelectVariantsService(),
             };

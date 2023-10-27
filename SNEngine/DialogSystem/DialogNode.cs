@@ -1,16 +1,14 @@
-﻿using SiphoinUnityHelpers.XNodeExtensions;
-using SiphoinUnityHelpers.XNodeExtensions.AsyncNodes;
-using SNEngine.CharacterSystem;
+﻿using SNEngine.CharacterSystem;
 using SNEngine.Services;
 using UnityEngine;
 
 namespace SNEngine.DialogSystem
 {
-    public class DialogNode : AsyncNode, IDialogNode
+    public class DialogNode : PrinterTextNode, IDialogNode
     {
-        [SerializeField] private Character _character;
+        [Space]
 
-        [SerializeField, TextArea] private string _text;
+        [SerializeField] private Character _character;
 
         public Character Character => _character;
 
@@ -21,22 +19,6 @@ namespace SNEngine.DialogSystem
             var serviceDialogs = NovelGame.GetService<DialogueUIService>();
 
             serviceDialogs.ShowDialog(this);
-        }
-
-        public string GetText()
-        {
-            return TextParser.ParseWithProperties(_text, graph as BaseGraph);
-        }
-
-        public int GetLengthText ()
-        {
-            return _text.Length;
-        }
-
-        public void MarkIsEnd ()
-        {
-            StopTask();
-
         }
 
 
