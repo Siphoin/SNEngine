@@ -12,6 +12,7 @@ namespace SNEngine.Repositories
 
             RepositoryBase[] repositories =
             {
+                new MaterialRepository(),
                 new CharacterRepository()
             };
 

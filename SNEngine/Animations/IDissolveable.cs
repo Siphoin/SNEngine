@@ -5,6 +5,6 @@ namespace SNEngine.Animations
 {
     public interface IDissolveable
     {
-        UniTask Dissolve(float time, Ease ease);
+        UniTask Dissolve(float time, AnimationBehaviourType animationBehaviour, Ease ease);
     }
 }

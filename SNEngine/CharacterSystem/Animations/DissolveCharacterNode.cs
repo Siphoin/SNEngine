@@ -1,11 +1,15 @@
 ﻿using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using SNEngine.Animations;
 using SNEngine.Services;
+using UnityEngine;
 
 namespace SNEngine.CharacterSystem.Animations
 {
     public class DissolveCharacterNode : AsyncCharacterNode
     {
+
+        [SerializeField] private AnimationBehaviourType _type;
         
         protected override void Play(Character target, float duration, Ease ease)
         {
@@ -16,7 +20,7 @@ namespace SNEngine.CharacterSystem.Animations
         {
             var serviceCharacters = NovelGame.GetService<CharacterService>();
 
-            await serviceCharacters.DissolveCharacter(target, duration, ease);
+            await serviceCharacters.DissolveCharacter(target, _type, duration, ease);
 
             StopTask();
 

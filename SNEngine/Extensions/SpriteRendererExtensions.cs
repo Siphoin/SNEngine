@@ -1,4 +1,5 @@
 ﻿using SNEngine.Animations;
+using SNEngine.Repositories;
 using UnityEngine;
 
 namespace SNEngine.Extensions
@@ -30,6 +31,13 @@ namespace SNEngine.Extensions
                     spriteRenderer.flipY = true;
                     break;
             }
+        }
+
+        public static void ReturnDefaultMaterial (this SpriteRenderer spriteRenderer)
+        {
+            var material = NovelGame.GetRepository<MaterialRepository>().GetMaterial("default");
+
+            spriteRenderer.material = material;
         }
     }
 }

@@ -6,6 +6,7 @@ using SNEngine.Animations;
 using Cysharp.Threading.Tasks;
 using System;
 using SNEngine.Debugging;
+using SNEngine.Repositories;
 
 namespace SNEngine.Extensions
 {
@@ -27,15 +28,39 @@ namespace SNEngine.Extensions
             return tweenerCore;
         }
 
-        public static TweenerCore<Color, Color, ColorOptions> DODissolve(this SpriteRenderer spriteRenderer, float duration)
+        public static Sequence DODissolve(this SpriteRenderer spriteRenderer, AnimationBehaviourType animationBehaviour, float duration)
         {
-            Color colorStart = spriteRenderer.color;
+            float endValue = animationBehaviour == AnimationBehaviourType.In ? 1 : 0;
 
-            colorStart.a = 0.5f;
+            Material dissolve = NovelGame.GetRepository<MaterialRepository>().GetMaterial("dissolve");
 
-            spriteRenderer.color = colorStart;
+            if (!spriteRenderer.material.HasFloat("_DissolveValue"))
+            {
+                spriteRenderer.material = dissolve;
+            }
 
-           return spriteRenderer.DOFade(1, duration);
+            Sequence sequence = DOTween.Sequence();
+
+            sequence.Append(spriteRenderer.material.DOFloat(endValue, "_DissolveValue", duration));
+
+            if (animationBehaviour == AnimationBehaviourType.Out)
+            {
+               ReturnMaterialToSpriteRenderer(spriteRenderer, duration * 2).Forget();
+            }
+            return sequence.Play();
+
+            
+        }
+
+        private static async UniTask ReturnMaterialToSpriteRenderer (SpriteRenderer spriteRenderer, float timeOut)
+        {
+            TimeSpan timeSpan = TimeSpan.FromSeconds(timeOut);
+
+            await UniTask.Delay(timeSpan);
+
+            spriteRenderer.ReturnDefaultMaterial();
+
+            NovelGameDebug.Log($"Return material {spriteRenderer.material.name} to Sprite Renderer {spriteRenderer.gameObject.name}");
         }
     }
 }

@@ -106,11 +106,11 @@ namespace SNEngine.CharacterSystem
             await _spriteRenderer.DOColor(color, time).SetEase(ease);
         }
 
-        public async UniTask Dissolve(float time, Ease ease)
+        public async UniTask Dissolve(float time, AnimationBehaviourType animationBehaviour, Ease ease)
         {
             time = MathfExtensions.ClampTime(time);
 
-            await _spriteRenderer.DODissolve(time).SetEase(ease);
+            await _spriteRenderer.DODissolve(animationBehaviour, time).SetEase(ease);
         }
 
         #endregion
@@ -132,6 +132,12 @@ namespace SNEngine.CharacterSystem
             _spriteRenderer.sprite = _character.GetEmotion(0).Sprite;
 
             _spriteRenderer.color = Color.white;
+
+            _spriteRenderer.flipX = false;
+
+            _spriteRenderer.flipY = false;
+
+            _spriteRenderer.ReturnDefaultMaterial();
 
             SetFlip(FlipType.None);
 
