@@ -34,18 +34,20 @@ namespace SNEngine.Extensions
 
             Material dissolve = NovelGame.GetRepository<MaterialRepository>().GetMaterial("dissolve");
 
-            if (!spriteRenderer.material.HasFloat("_DissolveValue"))
+            Debug.Log($"dissolve name: {dissolve.name} sprite renderer material name: {spriteRenderer.sharedMaterial.name}");
+
+            if (!spriteRenderer.sharedMaterial.HasFloat("_DissolveValue"))
             {
-                spriteRenderer.material = dissolve;
+                spriteRenderer.sharedMaterial = dissolve;
             }
 
             Sequence sequence = DOTween.Sequence();
 
-            sequence.Append(spriteRenderer.material.DOFloat(endValue, "_DissolveValue", duration));
+            sequence.Append(spriteRenderer.sharedMaterial.DOFloat(endValue, "_DissolveValue", duration));
 
             if (animationBehaviour == AnimationBehaviourType.Out)
             {
-               ReturnMaterialToSpriteRenderer(spriteRenderer, duration * 2).Forget();
+               ReturnMaterialToSpriteRenderer(spriteRenderer, duration).Forget();
             }
             return sequence.Play();
 

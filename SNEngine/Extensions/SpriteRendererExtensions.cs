@@ -37,7 +37,7 @@ namespace SNEngine.Extensions
         {
             var material = NovelGame.GetRepository<MaterialRepository>().GetMaterial("default");
 
-            spriteRenderer.material = material;
+            spriteRenderer.sharedMaterial = material;
         }
     }
 }

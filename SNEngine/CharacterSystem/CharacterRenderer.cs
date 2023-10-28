@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using SNEngine.Extensions;
 using SNEngine.Animations;
+using SNEngine.Repositories;
 
 namespace SNEngine.CharacterSystem
 {
@@ -14,6 +15,8 @@ namespace SNEngine.CharacterSystem
 
         private Character _character;
 
+        private Material _defaultMaterial;
+
         private void Awake()
         {
             if (!TryGetComponent(out _spriteRenderer))
@@ -21,7 +24,9 @@ namespace SNEngine.CharacterSystem
                 throw new NullReferenceException("sprite renderer component not found on character renderer");
             }
 
-            
+            _defaultMaterial = NovelGame.GetRepository<MaterialRepository>().GetMaterial("default");
+
+
         }
         public void Hide()
         {
@@ -137,7 +142,7 @@ namespace SNEngine.CharacterSystem
 
             _spriteRenderer.flipY = false;
 
-            _spriteRenderer.ReturnDefaultMaterial();
+            _spriteRenderer.material = _defaultMaterial;
 
             SetFlip(FlipType.None);
 
