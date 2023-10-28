@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2764457421953997441}
   - component: {fileID: 7819090568215857894}
   - component: {fileID: 366910289959813703}
+  - component: {fileID: 8027611328803551483}
   m_Layer: 5
   m_Name: textMessage
   m_TagString: Untagged
@@ -66,12 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-    eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-    in culpa qui officia deserunt mollit anim id est laborum."'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 55c955b7e1d5d214e89570b7988b3db8, type: 2}
   m_sharedMaterial: {fileID: -4563766517417620038, guid: 55c955b7e1d5d214e89570b7988b3db8, type: 2}
@@ -98,7 +94,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.4
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -140,6 +136,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8027611328803551483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455241874284280007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea557c6d334bff84eba2e41ab414dc3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _printerText: {fileID: 3482836788460540714}
+  _color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1996976893504515723
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,8 +242,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speedWriting: 0.03
-  _textNameCharacter: {fileID: 7525962058931678262}
   _textMessage: {fileID: 366910289959813703}
+  _textNameCharacter: {fileID: 7525962058931678262}
 --- !u!1 &6341953066513402151
 GameObject:
   m_ObjectHideFlags: 0

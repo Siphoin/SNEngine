@@ -43,7 +43,7 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  _nodeGuid: dbcf03dd1078436
+  _nodeGuid: ed64ab37431643e
   _enabled: 1
   _enter:
     _fieldName: 
@@ -102,7 +102,7 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  _nodeGuid: 58895b5139d74d7
+  _nodeGuid: eab4827fe1464b3
   _enabled: 0
   _enter:
     _fieldName: 
@@ -142,7 +142,6 @@ MonoBehaviour:
   - {fileID: 5886457231543834491}
   - {fileID: 7111991717621822229}
   - {fileID: 6500117119185025063}
-  - {fileID: 6914150904045535138}
   - {fileID: 4195152368410604303}
   - {fileID: -3133480843669033667}
 --- !u!114 &4049689061396544478
@@ -185,7 +184,7 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  _nodeGuid: a0d6d1e18a004e2
+  _nodeGuid: 50e267b30259482
   _enabled: 1
   _enter:
     _fieldName: 
@@ -218,7 +217,7 @@ MonoBehaviour:
   m_Name: Exit
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1784.1, y: 321.2}
+  position: {x: 1432, y: 280}
   ports:
     keys:
     - _enter
@@ -230,7 +229,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: _exit
-        node: {fileID: 6914150904045535138}
+        node: {fileID: 6500117119185025063}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -245,7 +244,7 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  _nodeGuid: 74d1d60e601642c
+  _nodeGuid: a30c9ea618dc440
   _enabled: 1
   _enter:
     _fieldName: 
@@ -318,7 +317,7 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  _nodeGuid: f187ca405456444
+  _nodeGuid: dca0a53f406043f
   _enabled: 1
   _enter:
     _fieldName: 
@@ -376,78 +375,13 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: _enter
-        node: {fileID: 6914150904045535138}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  _nodeGuid: 6a5ef92f27d4446
-  _enabled: 1
-  _enter:
-    _fieldName: 
-    _node: {fileID: 0}
-    _typeQualifiedName: 
-    connections: []
-    _direction: 0
-    _connectionType: 0
-    _typeConstraint: 0
-    _dynamic: 0
-  _exit:
-    _fieldName: 
-    _node: {fileID: 0}
-    _typeQualifiedName: 
-    connections: []
-    _direction: 0
-    _connectionType: 0
-    _typeConstraint: 0
-    _dynamic: 0
-  _text: SADDSD
-  _character: {fileID: 11400000, guid: c89c58e86b50a644eaa23c6b681a3143, type: 2}
---- !u!114 &6914150904045535138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fce0f0d7a80a0524f9c2b48b0ca5ffa4, type: 3}
-  m_Name: Dialog On Screen
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 1431.1, y: 283.2}
-  ports:
-    keys:
-    - _enter
-    - _exit
-    values:
-    - _fieldName: _enter
-      _node: {fileID: 6914150904045535138}
-      _typeQualifiedName: XNode.NodePort, XNode, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: _exit
-        node: {fileID: 6500117119185025063}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: _exit
-      _node: {fileID: 6914150904045535138}
-      _typeQualifiedName: XNode.NodePort, XNode, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: _enter
         node: {fileID: 4195152368410604303}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  _nodeGuid: c080e3dd1025409
+  _nodeGuid: d2ceadaffd9b4bb
   _enabled: 1
   _enter:
     _fieldName: 
@@ -467,7 +401,13 @@ MonoBehaviour:
     _connectionType: 0
     _typeConstraint: 0
     _dynamic: 0
-  _text: 
+  _text: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+    eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
+    in culpa qui officia deserunt mollit anim id est laborum.
+  _character: {fileID: 11400000, guid: c89c58e86b50a644eaa23c6b681a3143, type: 2}
 --- !u!114 &7111991717621822229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,7 +461,7 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  _nodeGuid: 85e713a4d022409
+  _nodeGuid: 4849e7e691754c1
   _enabled: 1
   _enter:
     _fieldName: 

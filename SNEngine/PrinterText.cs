@@ -15,6 +15,8 @@ namespace SNEngine
     {
         private CancellationTokenSource _cancellationTokenSource;
 
+        public event Action OnWriteSymbol;
+
         private string _currentText;
 
         [SerializeField, Min(0)] private float _speedWriting = 0.3f;
@@ -27,9 +29,11 @@ namespace SNEngine
 
         private IInputSystem _inputSystem;
 
-        protected bool AllTextWrited => _textMessage.text == _currentText;
+        public bool AllTextWrited => _textMessage.text == _currentText;
 
         public string CurrentText => _currentText;
+
+        public float SpeedWriting => _speedWriting;
 
         protected virtual void Awake()
         {
@@ -139,6 +143,8 @@ namespace SNEngine
                 stringBuilder.Append(message[i]);
 
                 _textMessage.text = stringBuilder.ToString();
+
+                OnWriteSymbol?.Invoke();
 
                 await UniTask.Delay(TimeSpan.FromSeconds(_speedWriting), cancellationToken: token);
             }

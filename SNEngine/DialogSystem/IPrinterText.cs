@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 
 namespace SNEngine.DialogSystem
 {
