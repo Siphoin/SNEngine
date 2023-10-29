@@ -1,4 +1,4 @@
-Shader "2D Custom/Dissolve"
+Shader "SNEngine/Dissolve"
 {
 	Properties
 	{

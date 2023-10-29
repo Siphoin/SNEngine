@@ -228,7 +228,7 @@ namespace SNEngine.Services
             await characterRender.ChangeColor(value, time, ease);
         }
 
-        public async UniTask DissolveCharacter(Character character, AnimationBehaviourType animationBehaviour, float time, Ease ease)
+        public async UniTask DissolveCharacter(Character character, AnimationBehaviourType animationBehaviour, float time, Ease ease, Texture2D texture = null)
         {
             if (LogErrorNullReferenceCharacter(character))
             {
@@ -237,7 +237,7 @@ namespace SNEngine.Services
 
             var characterRender = FindByName(character.name);
 
-            await characterRender.Dissolve(time, animationBehaviour, ease);
+            await characterRender.Dissolve(time, animationBehaviour, ease, texture);
         }
         #endregion
     }

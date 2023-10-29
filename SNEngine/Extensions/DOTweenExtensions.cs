@@ -12,6 +12,8 @@ namespace SNEngine.Extensions
 {
     public static class DOTweenExtensions
     {
+        private const string PROPERTY_SHADER_DISSOLVE_RANGE_VALUE = "_DissolveValue";
+
         public static TweenerCore<Vector3, Vector3, VectorOptions> DOParalax(this Transform target, Direction direction, float duration, bool snapping = false)
         {
             Vector3 endValue = target.position;
@@ -28,20 +30,25 @@ namespace SNEngine.Extensions
             return tweenerCore;
         }
 
-        public static Sequence DODissolve(this SpriteRenderer spriteRenderer, AnimationBehaviourType animationBehaviour, float duration)
+        public static Sequence DODissolve(this SpriteRenderer spriteRenderer, AnimationBehaviourType animationBehaviour, float duration, Texture2D texture = null)
         {
             float endValue = animationBehaviour == AnimationBehaviourType.In ? 1 : 0;
 
             Material dissolve = NovelGame.GetRepository<MaterialRepository>().GetMaterial("dissolve");
 
-            if (!spriteRenderer.sharedMaterial.HasFloat("_DissolveValue"))
+            if (!spriteRenderer.material.HasFloat(PROPERTY_SHADER_DISSOLVE_RANGE_VALUE))
             {
-                spriteRenderer.sharedMaterial = dissolve;
+                spriteRenderer.material = new Material(dissolve);
+            }
+
+            if (texture != null)
+            {
+                spriteRenderer.material.SetTexture("_DissolveTex", texture);
             }
 
             Sequence sequence = DOTween.Sequence();
 
-            sequence.Append(spriteRenderer.sharedMaterial.DOFloat(endValue, "_DissolveValue", duration));
+            sequence.Append(spriteRenderer.material.DOFloat(endValue, PROPERTY_SHADER_DISSOLVE_RANGE_VALUE, duration));
 
             if (animationBehaviour == AnimationBehaviourType.Out)
             {

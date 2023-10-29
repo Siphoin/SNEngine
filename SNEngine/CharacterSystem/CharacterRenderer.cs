@@ -111,11 +111,11 @@ namespace SNEngine.CharacterSystem
             await _spriteRenderer.DOColor(color, time).SetEase(ease);
         }
 
-        public async UniTask Dissolve(float time, AnimationBehaviourType animationBehaviour, Ease ease)
+        public async UniTask Dissolve(float time, AnimationBehaviourType animationBehaviour, Ease ease, Texture2D texture = null)
         {
             time = MathfExtensions.ClampTime(time);
 
-            await _spriteRenderer.DODissolve(animationBehaviour, time).SetEase(ease);
+            await _spriteRenderer.DODissolve(animationBehaviour, time, texture).SetEase(ease);
         }
 
         #endregion

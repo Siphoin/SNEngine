@@ -13,7 +13,6 @@ namespace SNEngine
 
         public override void Execute()
         {
-
             base.Execute();
 
             var dialogueService = NovelGame.GetService<DialogueService>();

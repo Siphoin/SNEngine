@@ -6,21 +6,19 @@ using UnityEngine;
 
 namespace SNEngine.CharacterSystem.Animations
 {
-    public class DissolveCharacterNode : AsyncCharacterNode
+    public class DissolveCharacterNode : DissolveNode<Character>
     {
 
-        [SerializeField] private AnimationBehaviourType _type;
-        
-        protected override void Play(Character target, float duration, Ease ease)
+        protected override void Play(Character target, float duration, AnimationBehaviourType type, Ease ease, Texture2D texture)
         {
-            Dissolve(target, duration, ease).Forget();
+            Dissolve(target, duration, type, ease, texture).Forget();
         }
 
-        private async UniTask Dissolve (Character target, float duration, Ease ease)
+        private async UniTask Dissolve (Character target, float duration, AnimationBehaviourType type, Ease ease, Texture2D texture)
         {
             var serviceCharacters = NovelGame.GetService<CharacterService>();
 
-            await serviceCharacters.DissolveCharacter(target, _type, duration, ease);
+            await serviceCharacters.DissolveCharacter(target, type, duration, ease, texture);
 
             StopTask();
 
