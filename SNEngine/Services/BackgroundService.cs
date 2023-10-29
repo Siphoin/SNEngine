@@ -86,6 +86,17 @@ namespace SNEngine.Services
 
             await _background.Move(direction, time, ease);
         }
+
+        public async UniTask Dissolve(float time, AnimationBehaviourType animationBehaviour, Ease ease, Texture2D texture = null, bool useTransition = false)
+        {
+            time = MathfExtensions.ClampTime(time);
+
+            _background.UseTransition = useTransition;
+
+            await _background.Dissolve(time, animationBehaviour, ease, texture);
+        }
+
+
         #endregion
     }
 }

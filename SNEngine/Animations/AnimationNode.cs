@@ -7,10 +7,13 @@ namespace SNEngine.Animations
 {
     public abstract class AnimationNode : AsyncNode
     {
-
         [Input(connectionType = ConnectionType.Override), SerializeField] private bool _wait;
 
+        [Space]
+
         [Input(connectionType = ConnectionType.Override), SerializeField, Min(0)] private float _duration;
+
+        [Space]
 
         [SerializeField] private Ease _ease = Ease.Linear;
 
