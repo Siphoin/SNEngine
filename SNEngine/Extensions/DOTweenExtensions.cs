@@ -34,8 +34,6 @@ namespace SNEngine.Extensions
 
             Material dissolve = NovelGame.GetRepository<MaterialRepository>().GetMaterial("dissolve");
 
-            Debug.Log($"dissolve name: {dissolve.name} sprite renderer material name: {spriteRenderer.sharedMaterial.name}");
-
             if (!spriteRenderer.sharedMaterial.HasFloat("_DissolveValue"))
             {
                 spriteRenderer.sharedMaterial = dissolve;
