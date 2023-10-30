@@ -100,6 +100,15 @@ namespace SNEngine.BackgroundSystem
             await _spriteRenderer.DOFade(value, time).SetEase(ease);
         }
 
+        public async UniTask Fade(float time, AnimationBehaviourType animationBehaviour, Ease ease)
+        {
+            time = MathfExtensions.ClampTime(time);
+
+            float value = AnimationBehaviourHelper.GetValue(animationBehaviour);
+
+            await _spriteRenderer.DOFade(value, time).SetEase(ease);
+        }
+
         public async UniTask ChangeColor(Color color, float time, Ease ease)
         {
             time = MathfExtensions.ClampTime(time);
@@ -140,6 +149,20 @@ namespace SNEngine.BackgroundSystem
 
                 UseTransition = false;
             }
+        }
+
+        public async UniTask ToBlackAndWhite(float time, AnimationBehaviourType animationBehaviour, Ease ease)
+        {
+            time = MathfExtensions.ClampTime(time);
+
+            await _spriteRenderer.DOBlackAndWhite(animationBehaviour, time).SetEase(ease);
+        }
+
+        public async UniTask ToBlackAndWhite(float time, float value, Ease ease)
+        {
+            time = MathfExtensions.ClampTime(time);
+
+            await _spriteRenderer.DOBlackAndWhite(value, time).SetEase(ease);
         }
 
 

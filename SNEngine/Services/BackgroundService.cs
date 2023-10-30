@@ -68,32 +68,39 @@ namespace SNEngine.Services
         #region Animations
         public async UniTask Fade(float value, float time, Ease ease)
         {
-            time = MathfExtensions.ClampTime(time);
-
             await _background.Fade(value, time, ease);
+        }
+
+        public async UniTask Fade(float time, AnimationBehaviourType animationBehaviour, Ease ease)
+        {
+            await _background.Fade(time, animationBehaviour, ease);
         }
 
         public async UniTask ChangeColor(Color color, float time, Ease ease)
         {
-            time = MathfExtensions.ClampTime(time);
-
             await _background.ChangeColor(color, time, ease);
         }
 
         public async UniTask Move(Direction direction, float time, Ease ease)
         {
-            time = MathfExtensions.ClampTime(time);
-
             await _background.Move(direction, time, ease);
         }
 
         public async UniTask Dissolve(float time, AnimationBehaviourType animationBehaviour, Ease ease, Texture2D texture = null, bool useTransition = false)
         {
-            time = MathfExtensions.ClampTime(time);
-
             _background.UseTransition = useTransition;
 
             await _background.Dissolve(time, animationBehaviour, ease, texture);
+        }
+
+        public async UniTask BlackAndWhite(float time, float value, Ease ease)
+        {
+            await _background.ToBlackAndWhite(time, value, ease);
+        }
+
+        public async UniTask BlackAndWhite(float time, AnimationBehaviourType animationBehaviour, Ease ease)
+        {
+            await _background.ToBlackAndWhite(time, animationBehaviour, ease);
         }
 
 

@@ -193,6 +193,19 @@ namespace SNEngine.Services
             await characterRender.Fade(value, time, ease);
         }
 
+
+        public async UniTask FadeCharacter(Character character, AnimationBehaviourType animationBehaviour, float duration, Ease ease)
+        {
+            if (LogErrorNullReferenceCharacter(character))
+            {
+                return;
+            }
+
+            var characterRender = FindByName(character.name);
+
+            await characterRender.Fade(duration, animationBehaviour, ease);  
+        }
+
         public async UniTask ScaleCharacter(Character character, Vector3 value, float time, Ease ease)
         {
             if (LogErrorNullReferenceCharacter(character))

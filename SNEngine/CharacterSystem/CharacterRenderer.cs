@@ -90,6 +90,15 @@ namespace SNEngine.CharacterSystem
             await _spriteRenderer.DOFade(value, time).SetEase(ease);
         }
 
+        public async UniTask Fade(float time, AnimationBehaviourType animationBehaviour, Ease ease)
+        {
+            time = MathfExtensions.ClampTime(time);
+
+            float value = AnimationBehaviourHelper.GetValue(animationBehaviour);
+
+            await _spriteRenderer.DOFade(value, time).SetEase(ease);
+        }
+
         public async UniTask Scale(Vector3 scale, float time, Ease ease)
         {
             time = MathfExtensions.ClampTime(time);

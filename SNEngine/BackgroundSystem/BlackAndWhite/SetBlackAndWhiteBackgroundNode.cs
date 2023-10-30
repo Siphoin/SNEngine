@@ -1,11 +1,12 @@
 ﻿using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using SNEngine.Services;
+using System;
 using UnityEngine;
 
-namespace SNEngine.BackgroundSystem.Animations
+namespace SNEngine.BackgroundSystem.Animations.BlackAndWhite
 {
-    public class FadeBackgroundNode : AsyncBackgroundNode
+    public class SetBlackAndWhiteBackgroundNode : AsyncBackgroundNode
     {
         [Input(connectionType = ConnectionType.Override), Range(0, 1), SerializeField] private float _value;
 
@@ -20,16 +21,15 @@ namespace SNEngine.BackgroundSystem.Animations
                 value = GetDataFromPort<float>(nameof(_value));
             }
 
-           Fade(value, duration, ease).Forget();
+            BlackAndWhite(value, duration, ease).Forget();
 
-            
+
         }
-
-        private async UniTask Fade (float value, float duration, Ease ease)
+        private async UniTask BlackAndWhite(float value, float duration, Ease ease)
         {
             var backgroundService = NovelGame.GetService<BackgroundService>();
 
-            await backgroundService.Fade(value, duration, ease);
+            await backgroundService.BlackAndWhite(value, duration, ease);
 
             StopTask();
         }

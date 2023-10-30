@@ -43,7 +43,7 @@ namespace SNEngine.Extensions
 
         public static TweenerCore<float, float, FloatOptions> DODissolve(this SpriteRenderer spriteRenderer, AnimationBehaviourType animationBehaviour, float duration, Texture2D texture = null)
         {
-            float endValue = animationBehaviour == AnimationBehaviourType.In ? 1 : 0;
+            float endValue = AnimationBehaviourHelper.GetValue(animationBehaviour);
 
             var operation = DOFloatMaterial(spriteRenderer, "dissolve", endValue, duration);
 
@@ -61,7 +61,7 @@ namespace SNEngine.Extensions
 
         public static TweenerCore<float, float, FloatOptions> DOBlackAndWhite(this SpriteRenderer spriteRenderer, AnimationBehaviourType animationBehaviour, float duration)
         {
-            float endValue = animationBehaviour == AnimationBehaviourType.In ? 1 : 0;
+            float endValue = AnimationBehaviourHelper.GetValue(animationBehaviour);
 
             var operation = DOFloatMaterial(spriteRenderer, "blackAndWhite", endValue, duration);
 
