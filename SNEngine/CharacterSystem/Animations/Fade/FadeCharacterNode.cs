@@ -4,7 +4,7 @@ using SNEngine.Services;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
-namespace SNEngine.CharacterSystem.Animations
+namespace SNEngine.CharacterSystem.Animations.Fade
 {
     public class FadeCharacterNode : AsyncCharacterNode
     {

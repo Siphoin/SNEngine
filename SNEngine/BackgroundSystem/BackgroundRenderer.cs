@@ -25,10 +25,10 @@ namespace SNEngine.BackgroundSystem
         {
             if (_maskTransition != null)
             {
-                _maskTransition.sprite = _spriteRenderer.sprite;
-            }
+                _oldSetedBackground = _spriteRenderer.sprite;
 
-            _oldSetedBackground = _spriteRenderer.sprite;
+                _maskTransition.sprite = _oldSetedBackground;
+            }
 
             UpdateBackground(data).Forget();
         }
@@ -73,6 +73,8 @@ namespace SNEngine.BackgroundSystem
                 _maskTransition.ReturnDefaultMaterial();
 
                 SetVisibleMaskTransition(false);
+
+                _oldSetedBackground = null;
             }
         }
 
@@ -131,7 +133,7 @@ namespace SNEngine.BackgroundSystem
 
                 if (animationBehaviour == AnimationBehaviourType.In)
                 {
-                    _maskTransition.material.SetFloat("_DissolveValue", 0);
+                    _maskTransition.material.SetFloat("_Amount", 0);
                 }
 
                 

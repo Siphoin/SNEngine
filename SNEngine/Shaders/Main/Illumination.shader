@@ -1,12 +1,13 @@
 // Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
-Shader"SNEngine/GrayScale"
+Shader "SNEngine/Illumination"
 {
 	Properties
 	{
 		[PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
+		_ColorOverlay ("Overlay", Color) = (1,1,1,1)
+		_Amount("Amount", Range(0,1)) = 0
 		[MaterialToggle] PixelSnap ("Pixel snap", Float) = 0
-		_Amount ("Amount", Range (0, 1)) = 1.0
 	}
 
 	SubShader
@@ -46,13 +47,14 @@ Shader"SNEngine/GrayScale"
 				fixed4 color    : COLOR;
 				float2 texcoord  : TEXCOORD0;
 			};
+		   fixed4 _ColorOverlay;
 
 			v2f vert(appdata_t IN)
 			{
 				v2f OUT;
 				OUT.vertex = UnityObjectToClipPos(IN.vertex);
 				OUT.texcoord = IN.texcoord;
-				OUT.color = IN.color;
+				OUT.color = IN.color * _ColorOverlay;
 				#ifdef PIXELSNAP_ON
 				OUT.vertex = UnityPixelSnap (OUT.vertex);
 				#endif
@@ -68,7 +70,6 @@ Shader"SNEngine/GrayScale"
 			fixed4 SampleSpriteTexture (float2 uv)
 			{
 				fixed4 color = tex2D (_MainTex, uv);
-
 #if UNITY_TEXTURE_ALPHASPLIT_ALLOWED
 				if (_AlphaSplitEnabled)
 					color.a = tex2D (_AlphaTex, uv).r;
@@ -80,8 +81,12 @@ Shader"SNEngine/GrayScale"
 			fixed4 frag(v2f IN) : SV_Target
 			{
 				fixed4 c = SampleSpriteTexture (IN.texcoord) * IN.color;
-				c.rgb = lerp(c.rgb, dot(c.rgb, float4(0, 1, 0.11, 0.1)), _Amount);
+			
+				c.rgb += _ColorOverlay.rgb * _Amount;
+	
 				c.rgb *= c.a;
+
+				
 				return c;
 			}
 		ENDCG

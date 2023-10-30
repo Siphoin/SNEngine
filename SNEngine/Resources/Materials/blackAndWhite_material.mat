@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: blackAndWhite_material
-  m_Shader: {fileID: 4800000, guid: 26289ae62b0ab294d9ee622fcfa5ea25, type: 3}
+  m_Shader: {fileID: 4800000, guid: 6440f9fe1a8b48b49a64f3850d465e6b, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -67,6 +67,7 @@ Material:
     m_Ints: []
     m_Floats:
     - PixelSnap: 0
+    - _Amount: 0
     - _BumpScale: 1
     - _ColorMask: 15
     - _Cutoff: 0.5
@@ -93,7 +94,7 @@ Material:
     - _UseUIAlphaClip: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.8773585, g: 0.8773585, b: 0.8773585, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}

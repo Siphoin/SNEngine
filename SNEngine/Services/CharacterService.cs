@@ -8,6 +8,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using SNEngine.Animations;
 using SNEngine.Debugging;
+using System.Threading.Tasks;
 
 namespace SNEngine.Services
 {
@@ -238,6 +239,30 @@ namespace SNEngine.Services
             var characterRender = FindByName(character.name);
 
             await characterRender.Dissolve(time, animationBehaviour, ease, texture);
+        }
+
+        public async UniTask BlackAndWhiteCharacter(Character character, float value, float duration, Ease ease)
+        {
+            if (LogErrorNullReferenceCharacter(character))
+            {
+                return;
+            }
+
+            var characterRender = FindByName(character.name);
+
+            await characterRender.ToBlackAndWhite(duration, value, ease);
+        }
+
+        public async UniTask BlackAndWhiteCharacter(Character character, AnimationBehaviourType animationBehaviour, float duration, Ease ease)
+        {
+            if (LogErrorNullReferenceCharacter(character))
+            {
+                return;
+            }
+
+            var characterRender = FindByName(character.name);
+
+            await characterRender.ToBlackAndWhite(duration, animationBehaviour, ease);
         }
         #endregion
     }

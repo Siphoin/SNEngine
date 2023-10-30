@@ -12,7 +12,7 @@ namespace SNEngine.Extensions
 {
     public static class DOTweenExtensions
     {
-        private const string PROPERTY_SHADER_DISSOLVE_RANGE_VALUE = "_DissolveValue";
+        private const string PROPERTY_SHADER_AMOUNT_VALUE = "_Amount";
 
         public static TweenerCore<Vector3, Vector3, VectorOptions> DOParalax(this Transform target, Direction direction, float duration, bool snapping = false)
         {
@@ -29,34 +29,53 @@ namespace SNEngine.Extensions
             tweenerCore.SetOptions(snapping).SetTarget(target);
             return tweenerCore;
         }
+        private static TweenerCore<float, float, FloatOptions> DOFloatMaterial (SpriteRenderer spriteRenderer, string nameMaterial, float value, float duration)
+        {
+            Material material = NovelGame.GetRepository<MaterialRepository>().GetMaterial(nameMaterial);
 
-        public static Sequence DODissolve(this SpriteRenderer spriteRenderer, AnimationBehaviourType animationBehaviour, float duration, Texture2D texture = null)
+            if (!spriteRenderer.material.name.Contains(material.name))
+            {
+                spriteRenderer.material = new Material(material);
+            }
+
+            return spriteRenderer.material.DOFloat(value, PROPERTY_SHADER_AMOUNT_VALUE, duration);
+        }
+
+        public static TweenerCore<float, float, FloatOptions> DODissolve(this SpriteRenderer spriteRenderer, AnimationBehaviourType animationBehaviour, float duration, Texture2D texture = null)
         {
             float endValue = animationBehaviour == AnimationBehaviourType.In ? 1 : 0;
 
-            Material dissolve = NovelGame.GetRepository<MaterialRepository>().GetMaterial("dissolve");
-
-            if (!spriteRenderer.material.HasFloat(PROPERTY_SHADER_DISSOLVE_RANGE_VALUE))
-            {
-                spriteRenderer.material = new Material(dissolve);
-            }
+            var operation = DOFloatMaterial(spriteRenderer, "dissolve", endValue, duration);
 
             if (texture != null)
             {
-                spriteRenderer.material.SetTexture("_DissolveTex", texture);
+                spriteRenderer.material.SetTexture("_DissolveTexture", texture);
             }
-
-            Sequence sequence = DOTween.Sequence();
-
-            sequence.Append(spriteRenderer.material.DOFloat(endValue, PROPERTY_SHADER_DISSOLVE_RANGE_VALUE, duration));
 
             if (animationBehaviour == AnimationBehaviourType.Out)
             {
                ReturnMaterialToSpriteRenderer(spriteRenderer, duration).Forget();
             }
-            return sequence.Play();
+            return operation;
+        }
 
-            
+        public static TweenerCore<float, float, FloatOptions> DOBlackAndWhite(this SpriteRenderer spriteRenderer, AnimationBehaviourType animationBehaviour, float duration)
+        {
+            float endValue = animationBehaviour == AnimationBehaviourType.In ? 1 : 0;
+
+            var operation = DOFloatMaterial(spriteRenderer, "blackAndWhite", endValue, duration);
+
+            if (animationBehaviour == AnimationBehaviourType.Out)
+            {
+                ReturnMaterialToSpriteRenderer(spriteRenderer, duration).Forget();
+            }
+
+            return operation;
+        }
+
+        public static TweenerCore<float, float, FloatOptions> DOBlackAndWhite(this SpriteRenderer spriteRenderer, float value, float duration)
+        {
+            return DOFloatMaterial(spriteRenderer, "blackAndWhite", value, duration);
         }
 
         private static async UniTask ReturnMaterialToSpriteRenderer (SpriteRenderer spriteRenderer, float timeOut)

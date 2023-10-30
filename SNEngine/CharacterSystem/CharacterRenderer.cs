@@ -118,6 +118,20 @@ namespace SNEngine.CharacterSystem
             await _spriteRenderer.DODissolve(animationBehaviour, time, texture).SetEase(ease);
         }
 
+        public async UniTask ToBlackAndWhite(float time, AnimationBehaviourType animationBehaviour, Ease ease)
+        {
+            time = MathfExtensions.ClampTime(time);
+
+            await _spriteRenderer.DOBlackAndWhite(animationBehaviour, time).SetEase(ease);
+        }
+
+        public async UniTask ToBlackAndWhite(float time, float value, Ease ease)
+        {
+            time = MathfExtensions.ClampTime(time);
+
+            await _spriteRenderer.DOBlackAndWhite(value, time).SetEase(ease);
+        }
+
         #endregion
 
         public void ResetState()

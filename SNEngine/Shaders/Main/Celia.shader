@@ -1,12 +1,13 @@
 // Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
-Shader"SNEngine/GrayScale"
+Shader"SNEngine/Celia"
 {
 	Properties
 	{
 		[PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
 		[MaterialToggle] PixelSnap ("Pixel snap", Float) = 0
-		_Amount ("Amount", Range (0, 1)) = 1.0
+		_Color ("Color", Color) = (0.5, 0.5, 0.5, 0.5)
+		_Amount ("Amount", Range (0, 0.2)) = 0.2
 	}
 
 	SubShader
@@ -64,6 +65,7 @@ Shader"SNEngine/GrayScale"
 			sampler2D _AlphaTex;
 			float _AlphaSplitEnabled;
 			float _Amount;
+			fixed4 _Color;
 
 			fixed4 SampleSpriteTexture (float2 uv)
 			{
@@ -79,8 +81,11 @@ Shader"SNEngine/GrayScale"
 
 			fixed4 frag(v2f IN) : SV_Target
 			{
-				fixed4 c = SampleSpriteTexture (IN.texcoord) * IN.color;
-				c.rgb = lerp(c.rgb, dot(c.rgb, float4(0, 1, 0.11, 0.1)), _Amount);
+				float amount = clamp(_Amount, 0, 0.2);
+				fixed4 c = SampleSpriteTexture (IN.texcoord) * IN.color;;
+		
+				c.rgb = lerp(c.rgb, _Color.rgb, amount);
+	
 				c.rgb *= c.a;
 				return c;
 			}
