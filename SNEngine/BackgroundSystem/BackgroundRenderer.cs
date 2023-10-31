@@ -76,6 +76,8 @@ namespace SNEngine.BackgroundSystem
 
                 _oldSetedBackground = null;
             }
+
+            _spriteRenderer.ReturnDefaultMaterial();
         }
 
         private void SetVisibleMaskTransition(bool visible)
@@ -145,9 +147,9 @@ namespace SNEngine.BackgroundSystem
                     _maskTransition.material.SetFloat("_Amount", 0);
                 }
 
-                
-
                 UseTransition = false;
+
+
             }
         }
 
@@ -162,7 +164,57 @@ namespace SNEngine.BackgroundSystem
         {
             time = MathfExtensions.ClampTime(time);
 
+            Debug.Log(value);
+
             await _spriteRenderer.DOBlackAndWhite(value, time).SetEase(ease);
+        }
+
+        public async UniTask Illuminate(float time, AnimationBehaviourType animationBehaviour, Ease ease)
+        {
+            time = MathfExtensions.ClampTime(time);
+
+            await _spriteRenderer.DOIllumination(animationBehaviour, time).SetEase(ease);
+        }
+
+        public async UniTask Illuminate(float time, float value, Ease ease)
+        {
+            time = MathfExtensions.ClampTime(time);
+
+            value = Mathf.Clamp01(value);
+
+            await _spriteRenderer.DOIllumination(value, time).SetEase(ease);
+        }
+
+        public async UniTask Solid(float time, AnimationBehaviourType animationBehaviour, Ease ease)
+        {
+            time = MathfExtensions.ClampTime(time);
+
+            await _spriteRenderer.DOSolid(animationBehaviour, time).SetEase(ease);
+        }
+
+        public async UniTask Solid(float time, float value, Ease ease)
+        {
+            time = MathfExtensions.ClampTime(time);
+
+            value = Mathf.Clamp01(value);
+
+            await _spriteRenderer.DOSolid(value, time).SetEase(ease);
+        }
+
+        public async UniTask Celia(float time, AnimationBehaviourType animationBehaviour, Ease ease)
+        {
+            time = MathfExtensions.ClampTime(time);
+
+            await _spriteRenderer.DOCelia(animationBehaviour, time).SetEase(ease);
+        }
+
+        public async UniTask Celia(float time, float value, Ease ease)
+        {
+            time = MathfExtensions.ClampTime(time);
+
+            value = Mathf.Clamp01(value);
+
+            await _spriteRenderer.DOCelia(value, time).SetEase(ease);
         }
 
 

@@ -9,6 +9,7 @@ namespace SNEngine.Services
     {
         private IDialogWindow _dialogWindow;
 
+
         public void Initialize()
         {
             var dialogWindow = Resources.Load<DialogWindow>("UI/dialogue");

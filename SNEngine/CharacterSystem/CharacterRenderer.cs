@@ -73,6 +73,35 @@ namespace SNEngine.CharacterSystem
             transform.position = new Vector3(transform.position.x, newPositionY, transform.position.z);
         }
 
+        public void ResetState()
+        {
+            Vector3 position = transform.position;
+
+            position.x = 0;
+
+            transform.position = position;
+
+            transform.localScale = Vector3.one;
+            
+            transform.localRotation = Quaternion.identity;
+
+            transform.rotation = Quaternion.identity;
+
+            _spriteRenderer.sprite = _character.GetEmotion(0).Sprite;
+
+            _spriteRenderer.color = Color.white;
+
+            _spriteRenderer.flipX = false;
+
+            _spriteRenderer.flipY = false;
+
+            _spriteRenderer.material = _defaultMaterial;
+
+            SetFlip(FlipType.None);
+
+            Hide();
+        }
+
         #region Animations
         public async UniTask Move(float x, float time, Ease ease)
         {
@@ -81,7 +110,7 @@ namespace SNEngine.CharacterSystem
             await transform.DOMoveX(x, time).SetEase(ease);
         }
 
-        public async UniTask Fade(float value,  float time, Ease ease)
+        public async UniTask Fade(float value, float time, Ease ease)
         {
             time = MathfExtensions.ClampTime(time);
 
@@ -141,35 +170,48 @@ namespace SNEngine.CharacterSystem
             await _spriteRenderer.DOBlackAndWhite(value, time).SetEase(ease);
         }
 
-        #endregion
-
-        public void ResetState()
+        public async UniTask Celia(float time, AnimationBehaviourType animationBehaviour, Ease ease)
         {
-            Vector3 position = transform.position;
+            time = MathfExtensions.ClampTime(time);
 
-            position.x = 0;
-
-            transform.position = position;
-
-            transform.localScale = Vector3.one;
-            
-            transform.localRotation = Quaternion.identity;
-
-            transform.rotation = Quaternion.identity;
-
-            _spriteRenderer.sprite = _character.GetEmotion(0).Sprite;
-
-            _spriteRenderer.color = Color.white;
-
-            _spriteRenderer.flipX = false;
-
-            _spriteRenderer.flipY = false;
-
-            _spriteRenderer.material = _defaultMaterial;
-
-            SetFlip(FlipType.None);
-
-            Hide();
+            await _spriteRenderer.DOCelia(animationBehaviour, time).SetEase(ease);
         }
+
+        public async UniTask Celia(float time, float value, Ease ease)
+        {
+            time = MathfExtensions.ClampTime(time);
+
+            await _spriteRenderer.DOCelia(value, time).SetEase(ease);
+        }
+
+        public async UniTask Solid(float time, AnimationBehaviourType animationBehaviour, Ease ease)
+        {
+            time = MathfExtensions.ClampTime(time);
+
+            await _spriteRenderer.DOSolid(animationBehaviour, time).SetEase(ease);
+        }
+
+        public async UniTask Solid(float time, float value, Ease ease)
+        {
+            time = MathfExtensions.ClampTime(time);
+
+            await _spriteRenderer.DOSolid(value, time).SetEase(ease);
+        }
+
+        public async UniTask Illuminate(float time, AnimationBehaviourType animationBehaviour, Ease ease)
+        {
+            time = MathfExtensions.ClampTime(time);
+
+            await _spriteRenderer.DOIllumination(animationBehaviour, time).SetEase(ease);
+        }
+
+        public async UniTask Illuminate(float time, float value, Ease ease)
+        {
+            time = MathfExtensions.ClampTime(time);
+
+            await _spriteRenderer.DOIllumination(value, time).SetEase(ease);
+        }
+
+        #endregion
     }
 }

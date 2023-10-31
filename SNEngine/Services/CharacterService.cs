@@ -277,6 +277,78 @@ namespace SNEngine.Services
 
             await characterRender.ToBlackAndWhite(duration, animationBehaviour, ease);
         }
+
+        public async UniTask SolidCharacter(Character character, float value, float duration, Ease ease)
+        {
+            if (LogErrorNullReferenceCharacter(character))
+            {
+                return;
+            }
+
+            var characterRender = FindByName(character.name);
+
+            await characterRender.Solid(duration, value, ease);
+        }
+
+        public async UniTask SolidCharacter(Character character, AnimationBehaviourType animationBehaviour, float duration, Ease ease)
+        {
+            if (LogErrorNullReferenceCharacter(character))
+            {
+                return;
+            }
+
+            var characterRender = FindByName(character.name);
+
+            await characterRender.Solid(duration, animationBehaviour, ease);
+        }
+
+        public async UniTask CeliaCharacter(Character character, float value, float duration, Ease ease)
+        {
+            if (LogErrorNullReferenceCharacter(character))
+            {
+                return;
+            }
+
+            var characterRender = FindByName(character.name);
+
+            await characterRender.Celia(duration, value, ease);
+        }
+
+        public async UniTask CeliaCharacter(Character character, AnimationBehaviourType animationBehaviour, float duration, Ease ease)
+        {
+            if (LogErrorNullReferenceCharacter(character))
+            {
+                return;
+            }
+
+            var characterRender = FindByName(character.name);
+
+            await characterRender.Celia(duration, animationBehaviour, ease);
+        }
+
+        public async UniTask IlluminateCharacter(Character character, float value, float duration, Ease ease)
+        {
+            if (LogErrorNullReferenceCharacter(character))
+            {
+                return;
+            }
+
+            var characterRender = FindByName(character.name);
+
+            await characterRender.Illuminate(duration, value, ease);
+        }
+
+        public async UniTask IlluminateCharacter(Character character, AnimationBehaviourType animationBehaviour, float duration, Ease ease)
+        {
+            if (LogErrorNullReferenceCharacter(character))
+            {
+                return;
+            }
+
+            var characterRender = FindByName(character.name);
+
+            await characterRender.Illuminate(duration, animationBehaviour, ease);
+        }
         #endregion
     }
 }

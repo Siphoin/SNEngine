@@ -29,7 +29,7 @@ namespace SNEngine.BackgroundSystem.Animations.BlackAndWhite
         {
             var backgroundService = NovelGame.GetService<BackgroundService>();
 
-            await backgroundService.BlackAndWhite(value, duration, ease);
+            await backgroundService.ToBlackAndWhite(duration, value, ease);
 
             StopTask();
         }

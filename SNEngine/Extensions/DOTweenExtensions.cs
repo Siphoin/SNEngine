@@ -14,6 +14,8 @@ namespace SNEngine.Extensions
     {
         private const string PROPERTY_SHADER_AMOUNT_VALUE = "_Amount";
 
+        private const float MAX_VALUE_CELIA_SHADER = 0.2f;
+
         public static TweenerCore<Vector3, Vector3, VectorOptions> DOParalax(this Transform target, Direction direction, float duration, bool snapping = false)
         {
             Vector3 endValue = target.position;
@@ -71,6 +73,67 @@ namespace SNEngine.Extensions
             }
 
             return operation;
+        }
+
+        public static TweenerCore<float, float, FloatOptions> DOIllumination(this SpriteRenderer spriteRenderer, AnimationBehaviourType animationBehaviour, float duration)
+        {
+            float endValue = AnimationBehaviourHelper.GetValue(animationBehaviour);
+
+            var operation = DOFloatMaterial(spriteRenderer, "illumination", endValue, duration);
+
+            if (animationBehaviour == AnimationBehaviourType.Out)
+            {
+                ReturnMaterialToSpriteRenderer(spriteRenderer, duration).Forget();
+            }
+
+            return operation;
+        }
+
+        public static TweenerCore<float, float, FloatOptions> DOIllumination(this SpriteRenderer spriteRenderer, float value, float duration)
+        {
+            return DOFloatMaterial(spriteRenderer, "illumination", value, duration);
+        }
+
+        public static TweenerCore<float, float, FloatOptions> DOSolid(this SpriteRenderer spriteRenderer, AnimationBehaviourType animationBehaviour, float duration)
+        {
+            float endValue = AnimationBehaviourHelper.GetValue(animationBehaviour);
+
+            var operation = DOFloatMaterial(spriteRenderer, "solid", endValue, duration);
+
+            if (animationBehaviour == AnimationBehaviourType.Out)
+            {
+                ReturnMaterialToSpriteRenderer(spriteRenderer, duration).Forget();
+            }
+
+            return operation;
+        }
+
+        public static TweenerCore<float, float, FloatOptions> DOSolid(this SpriteRenderer spriteRenderer, float value, float duration)
+        {
+            return DOFloatMaterial(spriteRenderer, "solid", value, duration);
+        }
+
+        public static TweenerCore<float, float, FloatOptions> DOCelia(this SpriteRenderer spriteRenderer, AnimationBehaviourType animationBehaviour, float duration)
+        {
+            float endValue = AnimationBehaviourHelper.GetValue(animationBehaviour);
+
+            endValue = Mathf.Clamp(endValue, 0.0f, MAX_VALUE_CELIA_SHADER);
+
+            var operation = DOFloatMaterial(spriteRenderer, "celia", endValue, duration);
+
+            if (animationBehaviour == AnimationBehaviourType.Out)
+            {
+                ReturnMaterialToSpriteRenderer(spriteRenderer, duration).Forget();
+            }
+
+            return operation;
+        }
+
+        public static TweenerCore<float, float, FloatOptions> DOCelia(this SpriteRenderer spriteRenderer, float value, float duration)
+        {
+            value = Mathf.Clamp(value, 0.0f, MAX_VALUE_CELIA_SHADER);
+
+            return DOFloatMaterial(spriteRenderer, "celia", value, duration);
         }
 
         public static TweenerCore<float, float, FloatOptions> DOBlackAndWhite(this SpriteRenderer spriteRenderer, float value, float duration)

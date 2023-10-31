@@ -1,8 +1,10 @@
-﻿using SNEngine.Debugging;
+﻿using Cysharp.Threading.Tasks;
+using SNEngine.Debugging;
 using SNEngine.DialogSystem;
 using SNEngine.Graphs;
 using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace SNEngine.Services
 {
@@ -12,9 +14,25 @@ namespace SNEngine.Services
 
         private IDialogue _startDialogue;
 
+        private IOldRenderDialogue _oldRenderDialogueService;
+
+        private MonoBehaviour _frameDetector;
+
         public void Initialize()
         {
+            _oldRenderDialogueService = NovelGame.GetService<RenderOldDialogueService>();
+
             _startDialogue = Resources.Load<DialogueGraph>($"Dialogues/{nameof(_startDialogue)}");
+
+            var frameDetector = Resources.Load<Dialog_FrameDetector>("System/Dialog_FrameDetector");
+
+            var prefabFrameDetector = Object.Instantiate(frameDetector);
+
+            prefabFrameDetector.name = frameDetector.name;
+
+            Object.DontDestroyOnLoad(prefabFrameDetector);
+
+            _frameDetector = prefabFrameDetector;
 
             // TODO: jumping to start dialogue with main menu
 
@@ -41,8 +59,6 @@ namespace SNEngine.Services
                 _currentDialogue.Stop();
             }
 
-            NovelGame.ResetStateServices();
-
             _currentDialogue = dialogue;
 
             _currentDialogue.OnEndExecute += OnEndExecute;
@@ -56,9 +72,25 @@ namespace SNEngine.Services
         {
             _currentDialogue.OnEndExecute -= OnEndExecute;
 
-            NovelGame.ResetStateServices();
+            ClearScreen().Forget();
 
             // TODO Return to main menu
+        }
+
+        private async UniTask ClearScreen()
+        {
+            _oldRenderDialogueService.UpdateRender();
+
+            for (int i = 0; i < 2; i++)
+            {
+                await UniTask.WaitForEndOfFrame(_frameDetector);
+            }
+
+           
+
+            NovelGame.ResetStateServices();
+
+            _oldRenderDialogueService.Clear();
         }
     }
 }

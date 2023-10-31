@@ -11,7 +11,7 @@ using Object = UnityEngine.Object;
 namespace SNEngine.Services
 {
     
-    public class BackgroundService : IService, IResetable, IFadeable, IFlipable, IMovableByDirection, IChangeableColor
+    public class BackgroundService : IService, IResetable, IFadeable, IFlipable, IMovableByDirection, IBlackAndWhiteSupport, ISolidable, IIlluminatiionable, ICeliable, IChangeableColor
     {
         private IBackgroundRenderer _background;
 
@@ -93,14 +93,44 @@ namespace SNEngine.Services
             await _background.Dissolve(time, animationBehaviour, ease, texture);
         }
 
-        public async UniTask BlackAndWhite(float time, float value, Ease ease)
+        public async UniTask ToBlackAndWhite(float time, AnimationBehaviourType animationBehaviour, Ease ease)
+        {
+            await _background.ToBlackAndWhite(time, animationBehaviour, ease);
+        }
+
+        public async UniTask ToBlackAndWhite(float time, float value, Ease ease)
         {
             await _background.ToBlackAndWhite(time, value, ease);
         }
 
-        public async UniTask BlackAndWhite(float time, AnimationBehaviourType animationBehaviour, Ease ease)
+        public async UniTask Solid(float time, AnimationBehaviourType animationBehaviour, Ease ease)
         {
-            await _background.ToBlackAndWhite(time, animationBehaviour, ease);
+            await _background.Solid(time, animationBehaviour, ease);
+        }
+
+        public async UniTask Solid(float time, float value, Ease ease)
+        {
+            await _background.Solid(time, value, ease);
+        }
+
+        public async UniTask Illuminate(float time, AnimationBehaviourType animationBehaviour, Ease ease)
+        {
+            await _background.Illuminate(time, animationBehaviour, ease);
+        }
+
+        public async UniTask Illuminate(float time, float value, Ease ease)
+        {
+            await _background.Illuminate(time, value, ease);
+        }
+
+        public async UniTask Celia(float time, AnimationBehaviourType animationBehaviour, Ease ease)
+        {
+            await _background.Celia(time, animationBehaviour, ease);
+        }
+
+        public async UniTask Celia(float time, float value, Ease ease)
+        {
+            await _background.Celia(time, value, ease);
         }
 
 

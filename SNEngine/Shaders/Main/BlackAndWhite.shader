@@ -79,11 +79,12 @@ Shader"SNEngine/GrayScale"
 
 			fixed4 frag(v2f IN) : SV_Target
 			{
-				fixed4 c = SampleSpriteTexture (IN.texcoord) * IN.color;
-				c.rgb = lerp(c.rgb, dot(c.rgb, float4(0, 1, 0.11, 0.1)), _Amount);
-				c.rgb *= c.a;
-				return c;
-			}
+				fixed4 c = SampleSpriteTexture(IN.texcoord) * IN.color;
+				float grey = dot(c.rgb, fixed3(0.22, 0.707, 0.071));
+
+				return lerp(c, fixed4(grey, grey, grey, c.a), _Amount);
+
+}
 		ENDCG
 		}
 	}

@@ -19,6 +19,7 @@ namespace SNEngine.Services
                 new InputService(),
                 new VaritablesContainerService(),
                 new UIService(),
+                new RenderOldDialogueService(),
                 new BackgroundService(),
                 new DialogueService(),
                 new DialogueUIService(),

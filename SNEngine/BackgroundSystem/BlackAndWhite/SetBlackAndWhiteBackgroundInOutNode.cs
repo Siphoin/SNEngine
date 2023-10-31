@@ -16,7 +16,7 @@ namespace SNEngine.BackgroundSystem.Animations.BlackAndWhite
         {
             var backgroundService = NovelGame.GetService<BackgroundService>();
 
-            await backgroundService.BlackAndWhite(duration, type, ease);
+            await backgroundService.ToBlackAndWhite(duration, type, ease);
 
             StopTask();
         }

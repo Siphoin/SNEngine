@@ -2,7 +2,6 @@
 using DG.Tweening;
 using SNEngine.Animations;
 using SNEngine.Services;
-using UnityEngine;
 
 namespace SNEngine.BackgroundSystem.Animations.Fade
 {
