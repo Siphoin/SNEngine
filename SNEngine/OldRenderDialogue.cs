@@ -22,22 +22,33 @@ namespace SNEngine
 
         public Texture2D UpdateRender()
         {
-            _camera.Render();
+            var mCamera = _camera;
 
-            Texture2D texture = new Texture2D(_camera.pixelWidth, _camera.pixelHeight);
+            Rect rect = new Rect(0, 0, mCamera.pixelWidth, mCamera.pixelHeight);
+            RenderTexture renderTexture = new RenderTexture(mCamera.pixelWidth, mCamera.pixelHeight, 24);
+            Texture2D screenShot = new Texture2D(mCamera.pixelWidth, mCamera.pixelHeight, TextureFormat.RGBA32, false);
 
-            texture.ReadPixels(new Rect(0, 0, _camera.pixelWidth, _camera.pixelHeight), 0, 0);
+            mCamera.targetTexture = renderTexture;
 
-            texture.Apply();
+            RenderTexture.active = renderTexture;
 
-            _spriteRenderer.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+            mCamera.Render();
 
-            return texture;
+            screenShot.ReadPixels(rect, 0, 0);
+            screenShot.Apply();
+
+
+
+
+
+
+            return screenShot;
         }
 
         public void Clear()
         {
-            _spriteRenderer = null;
+            _camera.targetTexture = null;
+            RenderTexture.active = null;
         }
     }
 }

@@ -18,6 +18,9 @@ namespace SNEngine.Services
 
         private MonoBehaviour _frameDetector;
 
+
+
+
         public void Initialize()
         {
             _oldRenderDialogueService = NovelGame.GetService<RenderOldDialogueService>();
@@ -52,12 +55,7 @@ namespace SNEngine.Services
                 NovelGameDebug.LogError("dialogue argument is null. Check your graph");
             }
 
-            if (_currentDialogue != null)
-            {
-                _currentDialogue.OnEndExecute -= OnEndExecute;
-
-                _currentDialogue.Stop();
-            }
+            _currentDialogue?.Stop();
 
             _currentDialogue = dialogue;
 
@@ -81,14 +79,11 @@ namespace SNEngine.Services
         {
             _oldRenderDialogueService.UpdateRender();
 
-            for (int i = 0; i < 2; i++)
-            {
-                await UniTask.WaitForEndOfFrame(_frameDetector);
-            }
-
-           
-
             NovelGame.ResetStateServices();
+
+            await UniTask.WaitForEndOfFrame(_frameDetector);
+
+            await UniTask.Delay(35);
 
             _oldRenderDialogueService.Clear();
         }

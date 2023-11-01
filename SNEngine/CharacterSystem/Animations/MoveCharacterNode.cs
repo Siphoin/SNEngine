@@ -28,8 +28,6 @@ namespace SNEngine.CharacterSystem.Animations
         {
             var serviceCharacters = NovelGame.GetService<CharacterService>();
 
-            Debug.Log(223);
-
             await serviceCharacters.MoveCharacter(character, x, duration, ease);
 
             StopTask();

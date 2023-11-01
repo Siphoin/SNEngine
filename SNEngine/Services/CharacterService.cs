@@ -181,6 +181,18 @@ namespace SNEngine.Services
             await characterRender.Move(x, time, ease);
         }
 
+        public async UniTask MoveCharacter(Character character, CharacterDirection direction, float duration, Ease ease)
+        {
+            if (LogErrorNullReferenceCharacter(character))
+            {
+                return;
+            }
+
+            var characterRender = FindByName(character.name);
+
+            await characterRender.Move(direction, duration, ease);
+        }
+
         public async UniTask FadeCharacter(Character character, float value, float time, Ease ease)
         {
             if (LogErrorNullReferenceCharacter(character))

@@ -31,6 +31,7 @@ namespace SNEngine.Extensions
             tweenerCore.SetOptions(snapping).SetTarget(target);
             return tweenerCore;
         }
+
         private static TweenerCore<float, float, FloatOptions> DOFloatMaterial (SpriteRenderer spriteRenderer, string nameMaterial, float value, float duration)
         {
             Material material = NovelGame.GetRepository<MaterialRepository>().GetMaterial(nameMaterial);

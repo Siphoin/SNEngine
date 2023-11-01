@@ -164,8 +164,6 @@ namespace SNEngine.BackgroundSystem
         {
             time = MathfExtensions.ClampTime(time);
 
-            Debug.Log(value);
-
             await _spriteRenderer.DOBlackAndWhite(value, time).SetEase(ease);
         }
 

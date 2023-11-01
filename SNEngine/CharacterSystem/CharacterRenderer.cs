@@ -110,6 +110,22 @@ namespace SNEngine.CharacterSystem
             await transform.DOMoveX(x, time).SetEase(ease);
         }
 
+
+        public async UniTask Move(CharacterDirection direction, float time, Ease ease)
+        {
+            // Get the sprite size from the SpriteRenderer component
+            float spriteSizeX = _spriteRenderer.size.x;
+
+            // Calculate the camera border based on the sprite size
+            float cameraBorder = Camera.main.aspect * Camera.main.orthographicSize - spriteSizeX / 2;
+
+            float x = direction == CharacterDirection.Left ? -cameraBorder : cameraBorder;
+
+            // Set up the tween with DOTween
+            await transform.DOMoveX(x, time).SetEase(ease);
+
+        }
+
         public async UniTask Fade(float value, float time, Ease ease)
         {
             time = MathfExtensions.ClampTime(time);
