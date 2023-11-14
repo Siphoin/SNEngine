@@ -1,5 +1,6 @@
 ﻿using SiphoinUnityHelpers.XNodeExtensions;
 using SNEngine.DialogSystem;
+using SNEngine.Extensions;
 using UnityEngine;
 
 namespace SNEngine.Graphs
@@ -8,5 +9,10 @@ namespace SNEngine.Graphs
     public class DialogueGraph : BaseGraph, IDialogue
     {
         public object Name => name;
+
+        public bool HasNextDialogueOnExit ()
+        {
+            return Queue.HasNextDialogueOnExit();
+        }
     }
 }

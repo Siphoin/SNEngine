@@ -13,5 +13,7 @@ namespace SNEngine.DialogSystem
         void Pause();
 
         void Stop();
+
+        bool HasNextDialogueOnExit();
     }
 }

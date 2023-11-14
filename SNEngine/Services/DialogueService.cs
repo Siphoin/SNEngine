@@ -10,16 +10,17 @@ namespace SNEngine.Services
 {
     internal class DialogueService : IService
     {
+        private const int TIME_OUT_WAIT_TO_NEW_RENDERER = 35;
+
         private IDialogue _currentDialogue;
 
         private IDialogue _startDialogue;
 
         private IOldRenderDialogue _oldRenderDialogueService;
 
+        public event Action<IDialogue> OnEndDialogue;
+
         private MonoBehaviour _frameDetector;
-
-
-
 
         public void Initialize()
         {
@@ -36,10 +37,6 @@ namespace SNEngine.Services
             Object.DontDestroyOnLoad(prefabFrameDetector);
 
             _frameDetector = prefabFrameDetector;
-
-            // TODO: jumping to start dialogue with main menu
-
-            JumpToStartDialogue();
             
         }
 
@@ -70,9 +67,9 @@ namespace SNEngine.Services
         {
             _currentDialogue.OnEndExecute -= OnEndExecute;
 
-            ClearScreen().Forget();
+            OnEndDialogue?.Invoke(_currentDialogue);
 
-            // TODO Return to main menu
+            ClearScreen().Forget();
         }
 
         private async UniTask ClearScreen()
@@ -83,7 +80,7 @@ namespace SNEngine.Services
 
             await UniTask.WaitForEndOfFrame(_frameDetector);
 
-            await UniTask.Delay(35);
+            await UniTask.Delay(TIME_OUT_WAIT_TO_NEW_RENDERER);
 
             _oldRenderDialogueService.Clear();
         }
