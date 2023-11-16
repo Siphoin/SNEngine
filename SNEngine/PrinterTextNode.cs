@@ -10,6 +10,8 @@ namespace SNEngine
     {
         [SerializeField, TextArea(10, 100)] private string _text = "Some Text";
 
+        public string Text => _text;
+
         public override void Execute()
         {
             base.Execute();
